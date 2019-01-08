@@ -21,5 +21,19 @@ namespace MacroRiver
             TreeNode node = new TreeNode(dbConnections[0].Name);
             this.treeView1.Nodes.Add(node);
         }
+
+        private void tsmiNewConnection_Click(object sender, EventArgs e)
+        {
+            var frm = new FormNewConnection();
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+
+            }
+        }
+
+        private void tsmiExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

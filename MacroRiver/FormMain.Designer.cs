@@ -30,6 +30,7 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tsmiFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiNewConnection = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiHelp = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,7 +39,6 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treeView1 = new System.Windows.Forms.TreeView();
-            this.tsmiNewConnection = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -67,6 +67,13 @@
             this.tsmiFile.Size = new System.Drawing.Size(58, 21);
             this.tsmiFile.Text = "文件(&F)";
             // 
+            // tsmiNewConnection
+            // 
+            this.tsmiNewConnection.Name = "tsmiNewConnection";
+            this.tsmiNewConnection.Size = new System.Drawing.Size(152, 22);
+            this.tsmiNewConnection.Text = "新建连接(&N)";
+            this.tsmiNewConnection.Click += new System.EventHandler(this.tsmiNewConnection_Click);
+            // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
@@ -77,6 +84,7 @@
             this.tsmiExit.Name = "tsmiExit";
             this.tsmiExit.Size = new System.Drawing.Size(152, 22);
             this.tsmiExit.Text = "退出(&x)";
+            this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
             // 
             // tsmiHelp
             // 
@@ -129,12 +137,6 @@
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(208, 394);
             this.treeView1.TabIndex = 0;
-            // 
-            // tsmiNewConnection
-            // 
-            this.tsmiNewConnection.Name = "tsmiNewConnection";
-            this.tsmiNewConnection.Size = new System.Drawing.Size(152, 22);
-            this.tsmiNewConnection.Text = "新建连接(&N)";
             // 
             // FormMain
             // 
