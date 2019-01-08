@@ -82,17 +82,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Class\MsgBoxUtil.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormNewConnection.cs">
+    <Compile Include="FormConnectionEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormNewConnection.Designer.cs">
-      <DependentUpon>FormNewConnection.cs</DependentUpon>
+    <Compile Include="FormConnectionEdit.Designer.cs">
+      <DependentUpon>FormConnectionEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\DatabaseConnection.cs" />
     <Compile Include="Program.cs" />
@@ -100,8 +101,8 @@
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormNewConnection.resx">
-      <DependentUpon>FormNewConnection.cs</DependentUpon>
+    <EmbeddedResource Include="FormConnectionEdit.resx">
+      <DependentUpon>FormConnectionEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

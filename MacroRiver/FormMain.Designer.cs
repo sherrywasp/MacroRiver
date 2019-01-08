@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tsmiFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiNewConnection = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,12 +39,16 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.treeConnection = new System.Windows.Forms.TreeView();
+            this.cmsConnTreeNode = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiConnectionEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiConnectionDel = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.cmsConnTreeNode.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -70,19 +75,19 @@
             // tsmiNewConnection
             // 
             this.tsmiNewConnection.Name = "tsmiNewConnection";
-            this.tsmiNewConnection.Size = new System.Drawing.Size(152, 22);
+            this.tsmiNewConnection.Size = new System.Drawing.Size(142, 22);
             this.tsmiNewConnection.Text = "新建连接(&N)";
             this.tsmiNewConnection.Click += new System.EventHandler(this.tsmiNewConnection_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(139, 6);
             // 
             // tsmiExit
             // 
             this.tsmiExit.Name = "tsmiExit";
-            this.tsmiExit.Size = new System.Drawing.Size(152, 22);
+            this.tsmiExit.Size = new System.Drawing.Size(142, 22);
             this.tsmiExit.Text = "退出(&x)";
             this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
             // 
@@ -125,18 +130,42 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.treeView1);
+            this.splitContainer1.Panel1.Controls.Add(this.treeConnection);
+            this.splitContainer1.Panel1MinSize = 100;
             this.splitContainer1.Size = new System.Drawing.Size(624, 394);
             this.splitContainer1.SplitterDistance = 208;
             this.splitContainer1.TabIndex = 2;
             // 
-            // treeView1
+            // treeConnection
             // 
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.Location = new System.Drawing.Point(0, 0);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(208, 394);
-            this.treeView1.TabIndex = 0;
+            this.treeConnection.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeConnection.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.treeConnection.Location = new System.Drawing.Point(0, 0);
+            this.treeConnection.Name = "treeConnection";
+            this.treeConnection.Size = new System.Drawing.Size(208, 394);
+            this.treeConnection.TabIndex = 0;
+            // 
+            // cmsConnTreeNode
+            // 
+            this.cmsConnTreeNode.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiConnectionEdit,
+            this.tsmiConnectionDel});
+            this.cmsConnTreeNode.Name = "cmsConnTreeNode";
+            this.cmsConnTreeNode.Size = new System.Drawing.Size(125, 48);
+            // 
+            // tsmiConnectionEdit
+            // 
+            this.tsmiConnectionEdit.Name = "tsmiConnectionEdit";
+            this.tsmiConnectionEdit.Size = new System.Drawing.Size(124, 22);
+            this.tsmiConnectionEdit.Text = "编辑连接";
+            this.tsmiConnectionEdit.Click += new System.EventHandler(this.tsmiConnectionEdit_Click);
+            // 
+            // tsmiConnectionDel
+            // 
+            this.tsmiConnectionDel.Name = "tsmiConnectionDel";
+            this.tsmiConnectionDel.Size = new System.Drawing.Size(124, 22);
+            this.tsmiConnectionDel.Text = "删除连接";
+            this.tsmiConnectionDel.Click += new System.EventHandler(this.tsmiConnectionDel_Click);
             // 
             // FormMain
             // 
@@ -150,6 +179,7 @@
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MacroRiver";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -158,6 +188,7 @@
             this.splitContainer1.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.cmsConnTreeNode.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -173,8 +204,11 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiAbout;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TreeView treeConnection;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripMenuItem tsmiNewConnection;
+        private System.Windows.Forms.ContextMenuStrip cmsConnTreeNode;
+        private System.Windows.Forms.ToolStripMenuItem tsmiConnectionEdit;
+        private System.Windows.Forms.ToolStripMenuItem tsmiConnectionDel;
     }
 }
