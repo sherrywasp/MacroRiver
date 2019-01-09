@@ -21,14 +21,17 @@ namespace MacroRiver
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormMain());
-
         }
 
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            if (e.Exception != null)
+            try
             {
                 MessageBox.Show(e.Exception.Message, "异常", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception", "Fatal UI Error. Could not show the error . Reason: " + ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
 

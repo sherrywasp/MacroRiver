@@ -1,10 +1,12 @@
 ﻿using Dapper;
 using Dapper.Contrib.Extensions;
 using MacroRiver.Common.Class;
+using MacroRiver.Common.Constants;
 using MacroRiver.Model;
 using MySql.Data.MySqlClient;
 using System;
 using System.Data.SQLite;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace MacroRiver
@@ -34,9 +36,36 @@ namespace MacroRiver
             //}
         }
 
+        // 单击节点
         private void treeConnection_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             this.treeConnection.SelectedNode = e.Node;  // 保证当在节点上点击右键时可选中节点
+        }
+
+        // 双击节点
+        private void treeConnection_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            var nodeTag = Convert.ToString(e.Node.Tag);
+            switch (nodeTag)  
+            {
+                case NodeTag.CONNECTION:
+                    if (e.Node.GetNodeCount(false) == 0)
+                    {
+                        ConnectionOpen(e.Node);
+                    }
+                    break;
+                case NodeTag.DATABASE:
+                    if (e.Node.GetNodeCount(false) == 0)
+                    {
+                        DatabaseOpen(e.Node);
+                    }
+                    break;
+                case NodeTag.TABLE:
+                    break;
+                default:
+                    // pass
+                    break;
+            }
         }
 
         #endregion
@@ -72,25 +101,7 @@ namespace MacroRiver
         {
             if (this.treeConnection.SelectedNode != null)
             {
-                var dbConn = sqliteConn.Get<DatabaseConnection>(this.treeConnection.SelectedNode.Name);
-                if (dbConn != null)
-                {
-                    var mysqlConnStr = String.Format("server={0};uid={1};pwd={2};", dbConn.Hostname, dbConn.Username, dbConn.Password);
-                    if (dbConn.Port.HasValue)
-                    {
-                        mysqlConnStr += String.Format("port={0};", dbConn.Port.Value);
-                    }
-                    currMySqlConnection = new MySqlConnection(mysqlConnStr);
-                    this.treeConnection.SelectedNode.Nodes.Clear();
-                    var databases = currMySqlConnection.Query<string>("show databases;");
-                    foreach (var item in databases)
-                    {
-                        TreeNode node = new TreeNode(item);
-                        node.ContextMenuStrip = cmsConnTreeNode2;
-                        this.treeConnection.SelectedNode.Nodes.Add(node);
-                    }
-                    this.treeConnection.SelectedNode.ExpandAll();
-                }
+                ConnectionOpen(this.treeConnection.SelectedNode);
             }
             else
             {
@@ -144,41 +155,12 @@ namespace MacroRiver
         {
             if (this.treeConnection.SelectedNode != null)
             {
-                this.treeConnection.SelectedNode.Nodes.Clear();
-                var sql = String.Format("use `{0}`; show tables; ", this.treeConnection.SelectedNode.Text);
-                var tables = currMySqlConnection.Query<string>(sql);
-                foreach (var item in tables)
-                {
-                    TreeNode node = new TreeNode(item);
-                    //node.ContextMenuStrip = cmsConnTreeNode2;
-                    this.treeConnection.SelectedNode.Nodes.Add(node);
-                }
-                this.treeConnection.SelectedNode.ExpandAll();
+                DatabaseOpen(this.treeConnection.SelectedNode);
             }
             else
             {
                 MsgBoxUtil.Warning("请先选中一个数据库");
             }
-        }
-
-        #endregion
-
-        #region treeConnection树形控件右键菜单(cmsConnTree)
-
-        // 新建连接
-        private void cmsConnTreeNewConnection_Click(object sender, EventArgs e)
-        {
-            var frm = new FormConnectionEdit();
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-                ConnectionTreeRefresh();
-            }
-        }
-
-        // 刷新连接信息树形控件
-        private void cmsConnTreeRefresh_Click(object sender, EventArgs e)
-        {
-            ConnectionTreeRefresh();
         }
 
         #endregion
@@ -196,9 +178,51 @@ namespace MacroRiver
                 TreeNode node = new TreeNode();
                 node.Name = item.Id;
                 node.Text = item.Name;
+                node.Tag = NodeTag.CONNECTION;
                 node.ContextMenuStrip = this.cmsConnTreeNode1;
                 this.treeConnection.Nodes.Add(node);
             }
+        }
+
+        private void ConnectionOpen(TreeNode connectionNode)
+        {
+            var dbConn = sqliteConn.Get<DatabaseConnection>(connectionNode.Name);
+            if (dbConn != null)
+            {
+                var mysqlConnStr = String.Format("server={0};uid={1};pwd={2};", dbConn.Hostname, dbConn.Username, dbConn.Password);
+                if (dbConn.Port.HasValue)
+                {
+                    mysqlConnStr += String.Format("port={0};", dbConn.Port.Value);
+                }
+                currMySqlConnection = new MySqlConnection(mysqlConnStr);
+                connectionNode.Nodes.Clear();
+                var databases = currMySqlConnection.Query<string>("show databases;");
+                foreach (var item in databases)
+                {
+                    TreeNode node = new TreeNode(item);
+                    node.Tag = NodeTag.DATABASE;
+                    node.ContextMenuStrip = cmsConnTreeNode2;
+                    connectionNode.Nodes.Add(node);
+                }
+                connectionNode.ExpandAll();
+            }
+        }
+
+        private void DatabaseOpen(TreeNode databaseNode)
+        {
+            databaseNode.Nodes.Clear();
+            var sql = String.Format("use `{0}`; show tables; ", databaseNode.Text);
+            var tables = currMySqlConnection.Query<string>(sql);
+            TreeNode nodeTable = new TreeNode(String.Format("表 ({0})", tables.AsList().Count));
+            databaseNode.Nodes.Add(nodeTable);
+            foreach (var item in tables)
+            {
+                TreeNode node = new TreeNode(item);
+                node.Tag = NodeTag.TABLE;
+                //node.ContextMenuStrip = cmsConnTreeNode2;
+                nodeTable.Nodes.Add(node);
+            }
+            databaseNode.ExpandAll();
         }
     }
 }

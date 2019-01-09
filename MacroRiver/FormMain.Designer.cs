@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("数据库连接");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tsmiFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiNewConnection = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,13 +41,10 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treeConnection = new System.Windows.Forms.TreeView();
-            this.cmsConnTree = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmsConnTreeNewConnection = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsConnTreeRefresh = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsConnTreeNode1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmsConnTreeNode1ConnectionOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsConnTreeNode1ConnectionEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsConnTreeNode1ConnectionDel = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsConnTreeNode1ConnectionOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsConnTreeNode2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmsConnTreeNode2DBOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
@@ -54,7 +52,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.cmsConnTree.SuspendLayout();
             this.cmsConnTreeNode1.SuspendLayout();
             this.cmsConnTreeNode2.SuspendLayout();
             this.SuspendLayout();
@@ -143,41 +140,23 @@
             this.splitContainer1.Panel1MinSize = 100;
             this.splitContainer1.Panel2MinSize = 200;
             this.splitContainer1.Size = new System.Drawing.Size(784, 414);
-            this.splitContainer1.SplitterDistance = 200;
+            this.splitContainer1.SplitterDistance = 300;
             this.splitContainer1.TabIndex = 2;
             // 
             // treeConnection
             // 
-            this.treeConnection.ContextMenuStrip = this.cmsConnTree;
             this.treeConnection.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeConnection.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.treeConnection.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treeConnection.Location = new System.Drawing.Point(0, 0);
             this.treeConnection.Name = "treeConnection";
-            this.treeConnection.Size = new System.Drawing.Size(200, 414);
+            treeNode1.Name = "Node0";
+            treeNode1.Text = "数据库连接";
+            this.treeConnection.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            this.treeConnection.Size = new System.Drawing.Size(300, 414);
             this.treeConnection.TabIndex = 0;
             this.treeConnection.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeConnection_NodeMouseClick);
-            // 
-            // cmsConnTree
-            // 
-            this.cmsConnTree.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmsConnTreeNewConnection,
-            this.cmsConnTreeRefresh});
-            this.cmsConnTree.Name = "cmsConnTree";
-            this.cmsConnTree.Size = new System.Drawing.Size(125, 48);
-            // 
-            // cmsConnTreeNewConnection
-            // 
-            this.cmsConnTreeNewConnection.Name = "cmsConnTreeNewConnection";
-            this.cmsConnTreeNewConnection.Size = new System.Drawing.Size(124, 22);
-            this.cmsConnTreeNewConnection.Text = "新建连接";
-            this.cmsConnTreeNewConnection.Click += new System.EventHandler(this.cmsConnTreeNewConnection_Click);
-            // 
-            // cmsConnTreeRefresh
-            // 
-            this.cmsConnTreeRefresh.Name = "cmsConnTreeRefresh";
-            this.cmsConnTreeRefresh.Size = new System.Drawing.Size(124, 22);
-            this.cmsConnTreeRefresh.Text = "刷新";
-            this.cmsConnTreeRefresh.Click += new System.EventHandler(this.cmsConnTreeRefresh_Click);
+            this.treeConnection.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeConnection_NodeMouseDoubleClick);
             // 
             // cmsConnTreeNode1
             // 
@@ -187,6 +166,13 @@
             this.cmsConnTreeNode1ConnectionDel});
             this.cmsConnTreeNode1.Name = "cmsConnTreeNode";
             this.cmsConnTreeNode1.Size = new System.Drawing.Size(125, 70);
+            // 
+            // cmsConnTreeNode1ConnectionOpen
+            // 
+            this.cmsConnTreeNode1ConnectionOpen.Name = "cmsConnTreeNode1ConnectionOpen";
+            this.cmsConnTreeNode1ConnectionOpen.Size = new System.Drawing.Size(124, 22);
+            this.cmsConnTreeNode1ConnectionOpen.Text = "打开连接";
+            this.cmsConnTreeNode1ConnectionOpen.Click += new System.EventHandler(this.cmsConnTreeNode1ConnectionOpen_Click);
             // 
             // cmsConnTreeNode1ConnectionEdit
             // 
@@ -202,24 +188,17 @@
             this.cmsConnTreeNode1ConnectionDel.Text = "删除连接";
             this.cmsConnTreeNode1ConnectionDel.Click += new System.EventHandler(this.cmsConnTreeNode1ConnectionDel_Click);
             // 
-            // cmsConnTreeNode1ConnectionOpen
-            // 
-            this.cmsConnTreeNode1ConnectionOpen.Name = "cmsConnTreeNode1ConnectionOpen";
-            this.cmsConnTreeNode1ConnectionOpen.Size = new System.Drawing.Size(124, 22);
-            this.cmsConnTreeNode1ConnectionOpen.Text = "打开连接";
-            this.cmsConnTreeNode1ConnectionOpen.Click += new System.EventHandler(this.cmsConnTreeNode1ConnectionOpen_Click);
-            // 
             // cmsConnTreeNode2
             // 
             this.cmsConnTreeNode2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cmsConnTreeNode2DBOpen});
             this.cmsConnTreeNode2.Name = "cmsConnTreeNode2";
-            this.cmsConnTreeNode2.Size = new System.Drawing.Size(153, 48);
+            this.cmsConnTreeNode2.Size = new System.Drawing.Size(137, 26);
             // 
             // cmsConnTreeNode2DBOpen
             // 
             this.cmsConnTreeNode2DBOpen.Name = "cmsConnTreeNode2DBOpen";
-            this.cmsConnTreeNode2DBOpen.Size = new System.Drawing.Size(152, 22);
+            this.cmsConnTreeNode2DBOpen.Size = new System.Drawing.Size(136, 22);
             this.cmsConnTreeNode2DBOpen.Text = "打开数据库";
             this.cmsConnTreeNode2DBOpen.Click += new System.EventHandler(this.cmsConnTreeNode2DBOpen_Click);
             // 
@@ -244,7 +223,6 @@
             this.splitContainer1.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.cmsConnTree.ResumeLayout(false);
             this.cmsConnTreeNode1.ResumeLayout(false);
             this.cmsConnTreeNode2.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -268,9 +246,6 @@
         private System.Windows.Forms.ContextMenuStrip cmsConnTreeNode1;
         private System.Windows.Forms.ToolStripMenuItem cmsConnTreeNode1ConnectionEdit;
         private System.Windows.Forms.ToolStripMenuItem cmsConnTreeNode1ConnectionDel;
-        private System.Windows.Forms.ContextMenuStrip cmsConnTree;
-        private System.Windows.Forms.ToolStripMenuItem cmsConnTreeNewConnection;
-        private System.Windows.Forms.ToolStripMenuItem cmsConnTreeRefresh;
         private System.Windows.Forms.ToolStripMenuItem cmsConnTreeNode1ConnectionOpen;
         private System.Windows.Forms.ContextMenuStrip cmsConnTreeNode2;
         private System.Windows.Forms.ToolStripMenuItem cmsConnTreeNode2DBOpen;
