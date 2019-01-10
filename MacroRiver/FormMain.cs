@@ -3,6 +3,7 @@ using Dapper.Contrib.Extensions;
 using MacroRiver.Common.Class;
 using MacroRiver.Common.Constants;
 using MacroRiver.Model;
+using MetroFramework.Forms;
 using MySql.Data.MySqlClient;
 using System;
 using System.Data.SQLite;
@@ -11,7 +12,7 @@ using System.Windows.Forms;
 
 namespace MacroRiver
 {
-    public partial class FormMain : Form
+    public partial class FormMain : MetroForm
     {
         private static readonly SQLiteConnection sqliteConn = DapperUtil.GetAppSQLiteConnection();
         private static MySqlConnection currMySqlConnection;

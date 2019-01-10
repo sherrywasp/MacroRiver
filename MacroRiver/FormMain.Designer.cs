@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("数据库连接");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("数据库连接");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tsmiFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiNewConnection = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,13 +47,17 @@
             this.cmsConnTreeNode1ConnectionDel = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsConnTreeNode2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmsConnTreeNode2DBOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.cmsConnTreeNode1.SuspendLayout();
             this.cmsConnTreeNode2.SuspendLayout();
+            this.metroTabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -61,7 +65,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiFile,
             this.tsmiHelp});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 60);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(784, 25);
             this.menuStrip1.TabIndex = 0;
@@ -131,15 +135,19 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 25);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 85);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.treeConnection);
             this.splitContainer1.Panel1MinSize = 100;
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.metroTabControl1);
             this.splitContainer1.Panel2MinSize = 200;
-            this.splitContainer1.Size = new System.Drawing.Size(784, 414);
+            this.splitContainer1.Size = new System.Drawing.Size(784, 354);
             this.splitContainer1.SplitterDistance = 300;
             this.splitContainer1.TabIndex = 2;
             // 
@@ -149,11 +157,11 @@
             this.treeConnection.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treeConnection.Location = new System.Drawing.Point(0, 0);
             this.treeConnection.Name = "treeConnection";
-            treeNode1.Name = "Node0";
-            treeNode1.Text = "数据库连接";
+            treeNode6.Name = "Node0";
+            treeNode6.Text = "数据库连接";
             this.treeConnection.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            this.treeConnection.Size = new System.Drawing.Size(300, 414);
+            treeNode6});
+            this.treeConnection.Size = new System.Drawing.Size(300, 354);
             this.treeConnection.TabIndex = 0;
             this.treeConnection.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeConnection_NodeMouseClick);
             this.treeConnection.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeConnection_NodeMouseDoubleClick);
@@ -202,6 +210,25 @@
             this.cmsConnTreeNode2DBOpen.Text = "打开数据库";
             this.cmsConnTreeNode2DBOpen.Click += new System.EventHandler(this.cmsConnTreeNode2DBOpen_Click);
             // 
+            // metroTabControl1
+            // 
+            this.metroTabControl1.Controls.Add(this.tabPage1);
+            this.metroTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.metroTabControl1.Location = new System.Drawing.Point(0, 0);
+            this.metroTabControl1.Name = "metroTabControl1";
+            this.metroTabControl1.SelectedIndex = 0;
+            this.metroTabControl1.Size = new System.Drawing.Size(480, 354);
+            this.metroTabControl1.TabIndex = 0;
+            this.metroTabControl1.UseSelectable = true;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 38);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(472, 312);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Home";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -212,8 +239,14 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Padding = new System.Windows.Forms.Padding(0, 60, 0, 0);
+            this.ShadowType = MetroFramework.Forms.MetroFormShadowType.None;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.Style = MetroFramework.MetroColorStyle.Default;
             this.Text = "MacroRiver";
+            this.TextAlign = MetroFramework.Forms.MetroFormTextAlign.Center;
+            this.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.TransparencyKey = System.Drawing.Color.Empty;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -221,10 +254,12 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.cmsConnTreeNode1.ResumeLayout(false);
             this.cmsConnTreeNode2.ResumeLayout(false);
+            this.metroTabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -249,5 +284,7 @@
         private System.Windows.Forms.ToolStripMenuItem cmsConnTreeNode1ConnectionOpen;
         private System.Windows.Forms.ContextMenuStrip cmsConnTreeNode2;
         private System.Windows.Forms.ToolStripMenuItem cmsConnTreeNode2DBOpen;
+        private MetroFramework.Controls.MetroTabControl metroTabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
     }
 }
