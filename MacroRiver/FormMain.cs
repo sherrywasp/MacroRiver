@@ -26,7 +26,7 @@ namespace MacroRiver
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            ConnectionTreeRefresh();
+            //ConnectionTreeRefresh();
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -40,7 +40,7 @@ namespace MacroRiver
         // 单击节点
         private void treeConnection_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            this.treeConnection.SelectedNode = e.Node;  // 保证当在节点上点击右键时可选中节点
+            //this.treeConnection.SelectedNode = e.Node;  // 保证当在节点上点击右键时可选中节点
         }
 
         // 双击节点
@@ -100,51 +100,51 @@ namespace MacroRiver
         // 打开连接
         private void cmsConnTreeNode1ConnectionOpen_Click(object sender, EventArgs e)
         {
-            if (this.treeConnection.SelectedNode != null)
-            {
-                ConnectionOpen(this.treeConnection.SelectedNode);
-            }
-            else
-            {
-                MsgBoxUtil.Warning("请先选中一个连接");
-            }
+            //if (this.treeConnection.SelectedNode != null)
+            //{
+            //    ConnectionOpen(this.treeConnection.SelectedNode);
+            //}
+            //else
+            //{
+            //    MsgBoxUtil.Warning("请先选中一个连接");
+            //}
         }
 
         // 编辑连接
         private void cmsConnTreeNode1ConnectionEdit_Click(object sender, EventArgs e)
         {
-            if (this.treeConnection.SelectedNode != null)
-            {
-                var frm = new FormConnectionEdit();
-                frm.ConnectionId = this.treeConnection.SelectedNode.Name;
-                if (frm.ShowDialog() == DialogResult.OK)
-                {
-                    ConnectionTreeRefresh();
-                }
-            }
-            else
-            {
-                MsgBoxUtil.Warning("请先选中一个连接");
-            }
+            //if (this.treeConnection.SelectedNode != null)
+            //{
+            //    var frm = new FormConnectionEdit();
+            //    frm.ConnectionId = this.treeConnection.SelectedNode.Name;
+            //    if (frm.ShowDialog() == DialogResult.OK)
+            //    {
+            //        ConnectionTreeRefresh();
+            //    }
+            //}
+            //else
+            //{
+            //    MsgBoxUtil.Warning("请先选中一个连接");
+            //}
         }
 
         // 删除连接
         private void cmsConnTreeNode1ConnectionDel_Click(object sender, EventArgs e)
         {
-            if (this.treeConnection.SelectedNode != null)
-            {
-                var name = this.treeConnection.SelectedNode.Text;
-                var prompt = String.Format("确实要删除此连接吗？\n{0}", name);
-                if (MsgBoxUtil.Confirm(prompt) == DialogResult.Yes)
-                {
-                    sqliteConn.Delete(new DatabaseConnection { Id = this.treeConnection.SelectedNode.Name });
-                    ConnectionTreeRefresh();
-                }
-            }
-            else
-            {
-                MsgBoxUtil.Warning("请先选中一个连接");
-            }
+            //if (this.treeConnection.SelectedNode != null)
+            //{
+            //    var name = this.treeConnection.SelectedNode.Text;
+            //    var prompt = String.Format("确实要删除此连接吗？\n{0}", name);
+            //    if (MsgBoxUtil.Confirm(prompt) == DialogResult.Yes)
+            //    {
+            //        sqliteConn.Delete(new DatabaseConnection { Id = this.treeConnection.SelectedNode.Name });
+            //        ConnectionTreeRefresh();
+            //    }
+            //}
+            //else
+            //{
+            //    MsgBoxUtil.Warning("请先选中一个连接");
+            //}
         }
 
         #endregion
@@ -154,14 +154,14 @@ namespace MacroRiver
         // 打开数据库
         private void cmsConnTreeNode2DBOpen_Click(object sender, EventArgs e)
         {
-            if (this.treeConnection.SelectedNode != null)
-            {
-                DatabaseOpen(this.treeConnection.SelectedNode);
-            }
-            else
-            {
-                MsgBoxUtil.Warning("请先选中一个数据库");
-            }
+            //if (this.treeConnection.SelectedNode != null)
+            //{
+            //    DatabaseOpen(this.treeConnection.SelectedNode);
+            //}
+            //else
+            //{
+            //    MsgBoxUtil.Warning("请先选中一个数据库");
+            //}
         }
 
         #endregion
@@ -171,18 +171,18 @@ namespace MacroRiver
         // 更新连接信息树形控件节点
         private void ConnectionTreeRefresh()
         {
-            this.treeConnection.Nodes.Clear();
+            //this.treeConnection.Nodes.Clear();
 
-            var dbConnections = sqliteConn.GetAll<DatabaseConnection>();
-            foreach (var item in dbConnections)
-            {
-                TreeNode node = new TreeNode();
-                node.Name = item.Id;
-                node.Text = item.Name;
-                node.Tag = NodeTag.CONNECTION;
-                node.ContextMenuStrip = this.cmsConnTreeNode1;
-                this.treeConnection.Nodes.Add(node);
-            }
+            //var dbConnections = sqliteConn.GetAll<DatabaseConnection>();
+            //foreach (var item in dbConnections)
+            //{
+            //    TreeNode node = new TreeNode();
+            //    node.Name = item.Id;
+            //    node.Text = item.Name;
+            //    node.Tag = NodeTag.CONNECTION;
+            //    node.ContextMenuStrip = this.cmsConnTreeNode1;
+            //    this.treeConnection.Nodes.Add(node);
+            //}
         }
 
         private void ConnectionOpen(TreeNode connectionNode)
@@ -202,7 +202,7 @@ namespace MacroRiver
                 {
                     TreeNode node = new TreeNode(item);
                     node.Tag = NodeTag.DATABASE;
-                    node.ContextMenuStrip = cmsConnTreeNode2;
+                    //node.ContextMenuStrip = cmsConnTreeNode2;
                     connectionNode.Nodes.Add(node);
                 }
                 connectionNode.ExpandAll();

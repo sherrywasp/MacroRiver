@@ -114,6 +114,12 @@
     <Compile Include="FormConnectionEdit.Designer.cs">
       <DependentUpon>FormConnectionEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="MetroFormTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MetroFormTest.Designer.cs">
+      <DependentUpon>MetroFormTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\DatabaseConnection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -122,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormConnectionEdit.resx">
       <DependentUpon>FormConnectionEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MetroFormTest.resx">
+      <DependentUpon>MetroFormTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
