@@ -114,23 +114,26 @@
     <Compile Include="FormConnectionEdit.Designer.cs">
       <DependentUpon>FormConnectionEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="MetroFormTest.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MetroFormTest.Designer.cs">
-      <DependentUpon>MetroFormTest.cs</DependentUpon>
-    </Compile>
     <Compile Include="Model\DatabaseConnection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UCConnection.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCConnection.Designer.cs">
+      <DependentUpon>UCConnection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCHome.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCHome.Designer.cs">
+      <DependentUpon>UCHome.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormConnectionEdit.resx">
       <DependentUpon>FormConnectionEdit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MetroFormTest.resx">
-      <DependentUpon>MetroFormTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -141,6 +144,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UCConnection.resx">
+      <DependentUpon>UCConnection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCHome.resx">
+      <DependentUpon>UCHome.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="App.config" />
     <None Include="App.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

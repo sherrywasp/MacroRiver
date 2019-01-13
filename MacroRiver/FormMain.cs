@@ -26,6 +26,9 @@ namespace MacroRiver
 
         private void FormMain_Load(object sender, EventArgs e)
         {
+            var ucHome = new UCHome();
+            ucHome.Dock = DockStyle.Fill;
+            this.Controls.Add(ucHome);
             //ConnectionTreeRefresh();
         }
 
