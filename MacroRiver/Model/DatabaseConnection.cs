@@ -7,7 +7,6 @@ namespace MacroRiver.Model
     {
         [ExplicitKey]
         public string Id { get; set; }
-        public string Name { get; set; }
         public string Hostname { get; set; }
         public int? Port { get; set; }
         public string Username { get; set; }

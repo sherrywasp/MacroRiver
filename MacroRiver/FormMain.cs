@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using Dapper.Contrib.Extensions;
-using MacroRiver.Common.Class;
+using MacroRiver.Common.Utils;
 using MacroRiver.Common.Constants;
 using MacroRiver.Model;
 using MetroFramework.Forms;
@@ -9,6 +9,7 @@ using System;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Windows.Forms;
+using MacroRiver.UserControls;
 
 namespace MacroRiver
 {
@@ -80,11 +81,7 @@ namespace MacroRiver
 
         private void tsmiNewConnection_Click(object sender, EventArgs e)
         {
-            var frm = new FormConnectionEdit();
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-                ConnectionTreeRefresh();
-            }
+           
         }
 
         private void tsmiExit_Click(object sender, EventArgs e)

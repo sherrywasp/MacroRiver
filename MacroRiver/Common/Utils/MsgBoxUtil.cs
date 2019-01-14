@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace MacroRiver.Common.Class
+namespace MacroRiver.Common.Utils
 {
     public class MsgBoxUtil
     {

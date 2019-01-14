@@ -7,21 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MetroFramework.Controls;
+using MacroRiver.UserControls;
 
-namespace MacroRiver
+namespace MacroRiver.UserControls
 {
     public partial class UCHome : MetroUserControl
     {
         public UCHome()
         {
             InitializeComponent();
+            this.Dock = DockStyle.Fill;
         }
 
-        private void metroButton1_Click(object sender, EventArgs e)
+        private void mBtnStart_Click(object sender, EventArgs e)
         {
-            var ucNext = new UCConnection();
-            ucNext.Dock = DockStyle.Fill;
-            this.Parent.Controls.Add(ucNext);
+            this.Parent.Controls.Add(new UCConnection());
             this.Parent.Controls.Remove(this);
         }
     }
