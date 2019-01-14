@@ -41,26 +41,19 @@ namespace MacroRiver.UserControls
 
         private void mtBack_Click(object sender, EventArgs e)
         {
-            this.Parent.Controls.Add(new UCHome());
-            this.Parent.Controls.Remove(this);
+            Back();
         }
 
         private void mtNext_Click(object sender, EventArgs e)
         {
-            var conn = GetConnection();
-            if (conn != null)
-            {
-                try
-                {
-                    SaveLastConnection();
-                }
-                catch
-                {
-                    // TODO: log
-                }
+            Next();
+        }
 
-                this.Parent.Controls.Add(new UCDatabase(conn));
-                this.Parent.Controls.Remove(this);
+        private void UCConnection_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                Next();
             }
         }
 
@@ -136,5 +129,35 @@ namespace MacroRiver.UserControls
                 });
             }
         }
+
+        private void Next()
+        {
+            var conn = GetConnection();
+            if (conn != null)
+            {
+                try
+                {
+                    SaveLastConnection();
+                }
+                catch
+                {
+                    // TODO: log
+                }
+
+                this.Parent.Controls.Add(new UCDatabase(conn));
+                this.Parent.Controls.Remove(this);
+            }
+        }
+
+        private void Back()
+        {
+            this.Parent.Controls.Add(new UCHome());
+            this.Parent.Controls.Remove(this);
+        }
+
+        private void mtxt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter) Next();
+        }        
     }
 }

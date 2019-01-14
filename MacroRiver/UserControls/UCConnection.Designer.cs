@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
-            this.mtNext = new MetroFramework.Controls.MetroTile();
-            this.mtBack = new MetroFramework.Controls.MetroTile();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.mtxtHostname = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
@@ -39,6 +37,8 @@
             this.mtxtUsername = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
             this.mtxtPassword = new MetroFramework.Controls.MetroTextBox();
+            this.mtBack = new MetroFramework.Controls.MetroTile();
+            this.mtNext = new MetroFramework.Controls.MetroTile();
             this.SuspendLayout();
             // 
             // metroLabel1
@@ -51,38 +51,6 @@
             this.metroLabel1.Size = new System.Drawing.Size(126, 25);
             this.metroLabel1.TabIndex = 0;
             this.metroLabel1.Text = "创建一个连接";
-            // 
-            // mtNext
-            // 
-            this.mtNext.ActiveControl = null;
-            this.mtNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.mtNext.BackColor = System.Drawing.Color.Transparent;
-            this.mtNext.Location = new System.Drawing.Point(790, 503);
-            this.mtNext.Name = "mtNext";
-            this.mtNext.Size = new System.Drawing.Size(64, 48);
-            this.mtNext.TabIndex = 1;
-            this.mtNext.TileImage = global::MacroRiver.Properties.Resources.next_48;
-            this.mtNext.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.mtNext.UseCustomBackColor = true;
-            this.mtNext.UseSelectable = true;
-            this.mtNext.UseTileImage = true;
-            this.mtNext.Click += new System.EventHandler(this.mtNext_Click);
-            // 
-            // mtBack
-            // 
-            this.mtBack.ActiveControl = null;
-            this.mtBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.mtBack.BackColor = System.Drawing.Color.Transparent;
-            this.mtBack.Location = new System.Drawing.Point(720, 503);
-            this.mtBack.Name = "mtBack";
-            this.mtBack.Size = new System.Drawing.Size(64, 48);
-            this.mtBack.TabIndex = 2;
-            this.mtBack.TileImage = global::MacroRiver.Properties.Resources.back_48;
-            this.mtBack.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.mtBack.UseCustomBackColor = true;
-            this.mtBack.UseSelectable = true;
-            this.mtBack.UseTileImage = true;
-            this.mtBack.Click += new System.EventHandler(this.mtBack_Click);
             // 
             // metroLabel2
             // 
@@ -125,11 +93,12 @@
             this.mtxtHostname.ShortcutsEnabled = true;
             this.mtxtHostname.ShowClearButton = true;
             this.mtxtHostname.Size = new System.Drawing.Size(581, 30);
-            this.mtxtHostname.TabIndex = 4;
+            this.mtxtHostname.TabIndex = 0;
             this.mtxtHostname.UseSelectable = true;
             this.mtxtHostname.WaterMark = "主机名或 IP";
             this.mtxtHostname.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.mtxtHostname.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mtxtHostname.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mtxt_KeyPress);
             // 
             // metroLabel3
             // 
@@ -172,11 +141,12 @@
             this.mtxtPort.ShortcutsEnabled = true;
             this.mtxtPort.ShowClearButton = true;
             this.mtxtPort.Size = new System.Drawing.Size(581, 30);
-            this.mtxtPort.TabIndex = 6;
+            this.mtxtPort.TabIndex = 1;
             this.mtxtPort.UseSelectable = true;
             this.mtxtPort.WaterMark = "不填则采用默认端口 3306";
             this.mtxtPort.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.mtxtPort.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mtxtPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mtxt_KeyPress);
             // 
             // metroLabel4
             // 
@@ -218,10 +188,11 @@
             this.mtxtUsername.ShortcutsEnabled = true;
             this.mtxtUsername.ShowClearButton = true;
             this.mtxtUsername.Size = new System.Drawing.Size(581, 30);
-            this.mtxtUsername.TabIndex = 8;
+            this.mtxtUsername.TabIndex = 2;
             this.mtxtUsername.UseSelectable = true;
             this.mtxtUsername.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.mtxtUsername.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mtxtUsername.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mtxt_KeyPress);
             // 
             // metroLabel5
             // 
@@ -263,11 +234,44 @@
             this.mtxtPassword.ShortcutsEnabled = true;
             this.mtxtPassword.ShowClearButton = true;
             this.mtxtPassword.Size = new System.Drawing.Size(581, 30);
-            this.mtxtPassword.TabIndex = 10;
+            this.mtxtPassword.TabIndex = 3;
             this.mtxtPassword.UseSelectable = true;
             this.mtxtPassword.UseSystemPasswordChar = true;
             this.mtxtPassword.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.mtxtPassword.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mtxtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mtxt_KeyPress);
+            // 
+            // mtBack
+            // 
+            this.mtBack.ActiveControl = null;
+            this.mtBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.mtBack.BackColor = System.Drawing.Color.Transparent;
+            this.mtBack.Location = new System.Drawing.Point(720, 503);
+            this.mtBack.Name = "mtBack";
+            this.mtBack.Size = new System.Drawing.Size(64, 48);
+            this.mtBack.TabIndex = 5;
+            this.mtBack.TileImage = global::MacroRiver.Properties.Resources.back_48;
+            this.mtBack.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.mtBack.UseCustomBackColor = true;
+            this.mtBack.UseSelectable = true;
+            this.mtBack.UseTileImage = true;
+            this.mtBack.Click += new System.EventHandler(this.mtBack_Click);
+            // 
+            // mtNext
+            // 
+            this.mtNext.ActiveControl = null;
+            this.mtNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.mtNext.BackColor = System.Drawing.Color.Transparent;
+            this.mtNext.Location = new System.Drawing.Point(790, 503);
+            this.mtNext.Name = "mtNext";
+            this.mtNext.Size = new System.Drawing.Size(64, 48);
+            this.mtNext.TabIndex = 4;
+            this.mtNext.TileImage = global::MacroRiver.Properties.Resources.next_48;
+            this.mtNext.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.mtNext.UseCustomBackColor = true;
+            this.mtNext.UseSelectable = true;
+            this.mtNext.UseTileImage = true;
+            this.mtNext.Click += new System.EventHandler(this.mtNext_Click);
             // 
             // UCConnection
             // 
@@ -286,6 +290,7 @@
             this.Name = "UCConnection";
             this.Size = new System.Drawing.Size(857, 554);
             this.Load += new System.EventHandler(this.UCConnection_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.UCConnection_KeyPress);
             this.ResumeLayout(false);
             this.PerformLayout();
 

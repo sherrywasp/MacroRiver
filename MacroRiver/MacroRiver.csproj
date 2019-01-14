@@ -158,6 +158,9 @@
     <EmbeddedResource Include="UserControls\UCConnection.resx">
       <DependentUpon>UCConnection.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UCTable.resx">
+      <DependentUpon>UCTable.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="App.config" />
     <None Include="App.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
