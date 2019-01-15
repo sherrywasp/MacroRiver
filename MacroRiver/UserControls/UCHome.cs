@@ -15,8 +15,8 @@ namespace MacroRiver.UserControls
     {
         public UCHome()
         {
-            InitializeComponent();
             this.Dock = DockStyle.Fill;
+            InitializeComponent();
         }
 
         private void mBtnStart_Click(object sender, EventArgs e)

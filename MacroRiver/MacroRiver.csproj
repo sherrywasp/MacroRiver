@@ -101,7 +101,6 @@
   <ItemGroup>
     <Compile Include="Common\Utils\DapperUtil.cs" />
     <Compile Include="Common\Utils\MetroMsgBoxUtil.cs" />
-    <Compile Include="Common\Utils\MsgBoxUtil.cs" />
     <Compile Include="Common\Constants\NodeTag.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
