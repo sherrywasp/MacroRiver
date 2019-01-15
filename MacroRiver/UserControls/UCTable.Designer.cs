@@ -32,10 +32,10 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.mGridTable = new MetroFramework.Controls.MetroGrid();
+            this.ColDatabase = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.mtBack = new MetroFramework.Controls.MetroTile();
             this.mtNext = new MetroFramework.Controls.MetroTile();
-            this.ColDatabase = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.mGridTable)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,6 +75,7 @@
             this.mGridTable.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.mGridTable.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
             this.mGridTable.Location = new System.Drawing.Point(0, 40);
+            this.mGridTable.Margin = new System.Windows.Forms.Padding(0);
             this.mGridTable.MultiSelect = false;
             this.mGridTable.Name = "mGridTable";
             this.mGridTable.ReadOnly = true;
@@ -91,9 +92,18 @@
             this.mGridTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.mGridTable.RowTemplate.Height = 23;
             this.mGridTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.mGridTable.Size = new System.Drawing.Size(800, 505);
+            this.mGridTable.Size = new System.Drawing.Size(800, 508);
             this.mGridTable.TabIndex = 9;
             this.mGridTable.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.mGridTable.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mGridTable_KeyPress);
+            // 
+            // ColDatabase
+            // 
+            this.ColDatabase.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColDatabase.DataPropertyName = "Tables";
+            this.ColDatabase.HeaderText = "Tables";
+            this.ColDatabase.Name = "ColDatabase";
+            this.ColDatabase.ReadOnly = true;
             // 
             // metroLabel1
             // 
@@ -137,14 +147,6 @@
             this.mtNext.UseSelectable = true;
             this.mtNext.UseTileImage = true;
             this.mtNext.Click += new System.EventHandler(this.mtNext_Click);
-            // 
-            // ColDatabase
-            // 
-            this.ColDatabase.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColDatabase.DataPropertyName = "Tables";
-            this.ColDatabase.HeaderText = "Tables";
-            this.ColDatabase.Name = "ColDatabase";
-            this.ColDatabase.ReadOnly = true;
             // 
             // UCTable
             // 

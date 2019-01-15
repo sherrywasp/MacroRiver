@@ -28,8 +28,8 @@ namespace MacroRiver.UserControls
             {
                 DataTable dt = new DataTable();
                 dt.Columns.Add("Tables");
-                var databases = DbConnection.Query<string>("show tables;");
-                foreach (var item in databases)
+                var tables = DbConnection.Query<string>("show tables;");
+                foreach (var item in tables)
                 {
                     DataRow row = dt.NewRow();
                     row[0] = item;
@@ -46,13 +46,31 @@ namespace MacroRiver.UserControls
 
         private void mtNext_Click(object sender, EventArgs e)
         {
-            
+            Next();
         }
 
         private void mtBack_Click(object sender, EventArgs e)
         {
             this.Parent.Controls.Add(new UCDatabase(this.DbConnection));
             this.Parent.Controls.Remove(this);
+        }
+
+        private void Next()
+        {
+            if (this.mGridTable.SelectedRows.Count > 0)
+            {
+                var tableName = this.mGridTable.SelectedRows[0].Cells[0].Value.ToString();
+                this.Parent.Controls.Add(new UCTableInspector(this.DbConnection, tableName));
+                this.Parent.Controls.Remove(this);
+            }
+        }
+
+        private void mGridTable_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar==(char)Keys.Enter)
+            {
+                Next();
+            }
         }
     }
 }

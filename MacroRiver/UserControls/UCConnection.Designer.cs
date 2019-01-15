@@ -74,7 +74,6 @@
             this.mtxtHostname.CustomButton.Size = new System.Drawing.Size(25, 25);
             this.mtxtHostname.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mtxtHostname.CustomButton.TabIndex = 1;
-            this.mtxtHostname.CustomButton.Text = "撒旦发射点";
             this.mtxtHostname.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.mtxtHostname.CustomButton.UseSelectable = true;
             this.mtxtHostname.CustomButton.UseVisualStyleBackColor = false;
@@ -122,7 +121,6 @@
             this.mtxtPort.CustomButton.Size = new System.Drawing.Size(25, 25);
             this.mtxtPort.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mtxtPort.CustomButton.TabIndex = 1;
-            this.mtxtPort.CustomButton.Text = "撒旦发射点";
             this.mtxtPort.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.mtxtPort.CustomButton.UseSelectable = true;
             this.mtxtPort.CustomButton.UseVisualStyleBackColor = false;
@@ -170,7 +168,6 @@
             this.mtxtUsername.CustomButton.Size = new System.Drawing.Size(25, 25);
             this.mtxtUsername.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mtxtUsername.CustomButton.TabIndex = 1;
-            this.mtxtUsername.CustomButton.Text = "撒旦发射点";
             this.mtxtUsername.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.mtxtUsername.CustomButton.UseSelectable = true;
             this.mtxtUsername.CustomButton.UseVisualStyleBackColor = false;
@@ -216,7 +213,6 @@
             this.mtxtPassword.CustomButton.Size = new System.Drawing.Size(25, 25);
             this.mtxtPassword.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mtxtPassword.CustomButton.TabIndex = 1;
-            this.mtxtPassword.CustomButton.Text = "撒旦发射点";
             this.mtxtPassword.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.mtxtPassword.CustomButton.UseSelectable = true;
             this.mtxtPassword.CustomButton.UseVisualStyleBackColor = false;
