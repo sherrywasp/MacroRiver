@@ -24,6 +24,15 @@ namespace MacroRiver.UserControls
             InitializeComponent();
         }
 
+        public UCExcel(IDbConnection DbConnection, string tableName, string fileName)
+        {
+            this.excelFileName = fileName;
+            this.DbConnection = DbConnection;
+            this.Dock = DockStyle.Fill;
+            this.tableName = tableName;
+            InitializeComponent();
+        }
+
         private void UCExcel_Load(object sender, EventArgs e)
         {
             this.mtxtFileName.Text = this.excelFileName;
@@ -31,7 +40,11 @@ namespace MacroRiver.UserControls
 
         private void mtNext_Click(object sender, EventArgs e)
         {
-
+            if (!String.IsNullOrEmpty(this.mtxtFileName.Text))
+            {
+                this.Parent.Controls.Add(new UCMapping(this.DbConnection, this.tableName, this.mtxtFileName.Text));
+                this.Parent.Controls.Remove(this);
+            }
         }
 
         private void mtBack_Click(object sender, EventArgs e)

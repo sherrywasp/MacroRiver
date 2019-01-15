@@ -136,6 +136,12 @@
     <Compile Include="UserControls\UCConnection.Designer.cs">
       <DependentUpon>UCConnection.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UCMapping.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UCMapping.Designer.cs">
+      <DependentUpon>UCMapping.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UCTable.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -172,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCConnection.resx">
       <DependentUpon>UCConnection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UCMapping.resx">
+      <DependentUpon>UCMapping.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCTable.resx">
       <DependentUpon>UCTable.cs</DependentUpon>
