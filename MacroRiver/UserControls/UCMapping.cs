@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MetroFramework.Controls;
+using Dapper;
 
 namespace MacroRiver.UserControls
 {
@@ -27,7 +28,18 @@ namespace MacroRiver.UserControls
 
         private void UCMapping_Load(object sender, EventArgs e)
         {
+            if (this.DbConnection != null && !String.IsNullOrEmpty(this.tableName))
+            {
+                var currDB = this.DbConnection.Database;
+                this.DbConnection.Open();
+                this.DbConnection.ChangeDatabase("information_schema");
+                var dbColumns = DbConnection.Query<string>(String.Format("select column_name from columns where table_schema = '{0}' and table_name = '{1}';", currDB, tableName)).ToList();
 
+                //for (int i = 0; i < this.dgvTableInspector.Rows.Count; i++)
+                //{
+                //    this.dgvTableInspector.Rows[i].Height = 30;
+                //}
+            }
         }
 
         private void mtNext_Click(object sender, EventArgs e)
