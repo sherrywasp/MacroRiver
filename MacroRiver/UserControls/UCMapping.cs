@@ -11,14 +11,15 @@ using Dapper;
 using OfficeOpenXml;
 using System.IO;
 using MacroRiver.Common.Utils;
+using System.Collections;
 
 namespace MacroRiver.UserControls
 {
     public partial class UCMapping : MetroUserControl
     {
         public IDbConnection DbConnection { get; set; }
-        public string tableName { get; set; }
-        public string excelFileName { get; set; }
+        public string TableName { get; set; }
+        public string ExcelFileName { get; set; }
 
         private List<string> excelColumnHeaders = new List<string>();
         private string cellValueBeforeEdit;
@@ -27,26 +28,26 @@ namespace MacroRiver.UserControls
         {
             this.DbConnection = DbConnection;
             this.Dock = DockStyle.Fill;
-            this.tableName = tableName;
-            this.excelFileName = fileName;
+            this.TableName = tableName;
+            this.ExcelFileName = fileName;
             InitializeComponent();
         }
 
         private void UCMapping_Load(object sender, EventArgs e)
         {
             if (this.DbConnection != null &&
-                !String.IsNullOrEmpty(this.tableName) &&
-                !(String.IsNullOrEmpty(this.excelFileName)))
+                !String.IsNullOrEmpty(TableName) &&
+                !(String.IsNullOrEmpty(ExcelFileName)))
             {
                 // 获取数据库字段
                 var currDB = this.DbConnection.Database;
                 this.DbConnection.Open();
                 this.DbConnection.ChangeDatabase("information_schema");
-                var dbColumns = DbConnection.Query<string>(String.Format("select column_name from columns where table_schema = '{0}' and table_name = '{1}';", currDB, tableName)).ToList();
+                var dbColumns = DbConnection.Query<string>(String.Format("select column_name from columns where table_schema = '{0}' and table_name = '{1}';", currDB, TableName)).ToList();
                 this.DbConnection.ChangeDatabase(currDB);
                 this.DbConnection.Close();
                 // 获取Excel列头
-                var existingFile = new FileInfo(this.excelFileName);
+                var existingFile = new FileInfo(ExcelFileName);
                 using (ExcelPackage package = new ExcelPackage(existingFile))
                 {
                     // get the first worksheet in the workbook
@@ -67,10 +68,11 @@ namespace MacroRiver.UserControls
                 {
                     var row = dt.NewRow();
                     row[0] = i < dbColumns.Count ? dbColumns[i] : null;
-                    row[1] = "<-->";
+                    row[1] = "-->";
                     row[2] = i < this.excelColumnHeaders.Count ? this.excelColumnHeaders[i] : null;
                     dt.Rows.Add(row);
                 }
+                this.dgvMapping.AutoGenerateColumns = false;
                 this.dgvMapping.DataSource = dt;
 
                 for (int i = 0; i < this.dgvMapping.Rows.Count; i++)
@@ -82,15 +84,24 @@ namespace MacroRiver.UserControls
 
         private void mtNext_Click(object sender, EventArgs e)
         {
+            Dictionary<string, string> colMapping = new Dictionary<string, string>();
             for (int i = 0; i < this.dgvMapping.Rows.Count; i++)
             {
-                this.excelColumnHeaders[i] = Convert.ToString(this.dgvMapping.Rows[i].Cells["ColExcelColumn"].Value);
+                var excelCol = Convert.ToString(this.dgvMapping.Rows[i].Cells["ColExcelColumn"].Value);
+                if (!String.IsNullOrEmpty(excelCol))
+                {
+                    var dbCol = Convert.ToString(this.dgvMapping.Rows[i].Cells["ColDBColumn"].Value);
+                    colMapping[excelCol] = dbCol;
+                }
             }
+
+            this.Parent.Controls.Add(new UCValidation(DbConnection, TableName, ExcelFileName, colMapping));
+            this.Parent.Controls.Remove(this);
         }
 
         private void mtBack_Click(object sender, EventArgs e)
         {
-            this.Parent.Controls.Add(new UCExcel(DbConnection, tableName, excelFileName));
+            this.Parent.Controls.Add(new UCExcel(DbConnection, TableName, ExcelFileName));
             this.Parent.Controls.Remove(this);
         }
 

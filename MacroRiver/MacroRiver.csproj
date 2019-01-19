@@ -154,6 +154,12 @@
     <Compile Include="UserControls\UCTableInspector.Designer.cs">
       <DependentUpon>UCTableInspector.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UCValidation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UCValidation.Designer.cs">
+      <DependentUpon>UCValidation.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -187,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCTableInspector.resx">
       <DependentUpon>UCTableInspector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UCValidation.resx">
+      <DependentUpon>UCValidation.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="App.db">

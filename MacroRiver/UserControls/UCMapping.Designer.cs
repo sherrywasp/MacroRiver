@@ -36,9 +36,9 @@
             this.mtBack = new MetroFramework.Controls.MetroTile();
             this.mtNext = new MetroFramework.Controls.MetroTile();
             this.dgvMapping = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColExcelColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColDBColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMapping)).BeginInit();
             this.SuspendLayout();
             // 
@@ -108,14 +108,14 @@
             this.dgvMapping.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvMapping.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMapping.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
+            this.ColExcelColumn,
             this.Column3,
-            this.ColExcelColumn});
+            this.ColDBColumn});
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI Emoji", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvMapping.DefaultCellStyle = dataGridViewCellStyle4;
@@ -132,15 +132,15 @@
             this.dgvMapping.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvMapping_CellBeginEdit);
             this.dgvMapping.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMapping_CellEndEdit);
             // 
-            // Column1
+            // ColExcelColumn
             // 
-            this.Column1.DataPropertyName = "DBCol";
+            this.ColExcelColumn.DataPropertyName = "ExcelCol";
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Column1.FillWeight = 200F;
-            this.Column1.HeaderText = "数据库字段名";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
+            this.ColExcelColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.ColExcelColumn.FillWeight = 200F;
+            this.ColExcelColumn.HeaderText = "Excel列名";
+            this.ColExcelColumn.Name = "ColExcelColumn";
+            this.ColExcelColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column3
             // 
@@ -149,15 +149,18 @@
             this.Column3.HeaderText = "";
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
+            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // ColExcelColumn
+            // ColDBColumn
             // 
-            this.ColExcelColumn.DataPropertyName = "ExcelCol";
+            this.ColDBColumn.DataPropertyName = "DBCol";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.ColExcelColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.ColExcelColumn.FillWeight = 200F;
-            this.ColExcelColumn.HeaderText = "Excel列名";
-            this.ColExcelColumn.Name = "ColExcelColumn";
+            this.ColDBColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            this.ColDBColumn.FillWeight = 200F;
+            this.ColDBColumn.HeaderText = "数据库字段名";
+            this.ColDBColumn.Name = "ColDBColumn";
+            this.ColDBColumn.ReadOnly = true;
+            this.ColDBColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // UCMapping
             // 
@@ -182,8 +185,8 @@
         private MetroFramework.Controls.MetroTile mtBack;
         private MetroFramework.Controls.MetroTile mtNext;
         private System.Windows.Forms.DataGridView dgvMapping;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColExcelColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColDBColumn;
     }
 }
