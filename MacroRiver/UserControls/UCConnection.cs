@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using Dapper.Contrib.Extensions;
+using MacroRiver.Common.Utils;
+using MacroRiver.Model;
 using MetroFramework.Controls;
 using MySql.Data.MySqlClient;
-using MetroFramework;
-using MacroRiver.Common.Utils;
+using System;
+using System.Data;
 using System.Data.SQLite;
-using MacroRiver.Model;
-using Dapper.Contrib.Extensions;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace MacroRiver.UserControls
 {

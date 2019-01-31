@@ -12,16 +12,15 @@ namespace MacroRiver
         [STAThread]
         static void Main()
         {
-            // UI thread exceptions
-            Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
-            // non-UI thread exceptions
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            //// UI thread exceptions
+            //Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
+            //// non-UI thread exceptions
+            //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            //Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
 
-            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormMain());
-            //Application.Run(new MetroFormTest());
         }
 
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)

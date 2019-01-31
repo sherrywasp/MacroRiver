@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using MetroFramework.Controls;
-using Dapper;
-using OfficeOpenXml;
-using System.IO;
+﻿using Dapper;
 using MacroRiver.Common.Utils;
-using System.Collections;
+using MetroFramework.Controls;
+using OfficeOpenXml;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace MacroRiver.UserControls
 {
@@ -41,7 +37,10 @@ namespace MacroRiver.UserControls
             {
                 // 获取数据库字段
                 var currDB = this.DbConnection.Database;
-                this.DbConnection.Open();
+                if (this.DbConnection.State == ConnectionState.Closed)
+                {
+                    this.DbConnection.Open();
+                }
                 this.DbConnection.ChangeDatabase("information_schema");
                 var dbColumns = DbConnection.Query<string>(String.Format("select column_name from columns where table_schema = '{0}' and table_name = '{1}';", currDB, TableName)).ToList();
                 this.DbConnection.ChangeDatabase(currDB);
@@ -91,7 +90,10 @@ namespace MacroRiver.UserControls
                 if (!String.IsNullOrEmpty(excelCol))
                 {
                     var dbCol = Convert.ToString(this.dgvMapping.Rows[i].Cells["ColDBColumn"].Value);
-                    colMapping[excelCol] = dbCol;
+                    if (!String.IsNullOrEmpty(dbCol))
+                    {
+                        colMapping[excelCol] = dbCol;
+                    }                        
                 }
             }
 

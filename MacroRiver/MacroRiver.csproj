@@ -110,6 +110,7 @@
     </Compile>
     <Compile Include="Model\DatabaseConnection.cs" />
     <Compile Include="Model\FullColumns.cs" />
+    <Compile Include="Model\InformationSchemaColumns.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserControls\UCDatabase.cs">
@@ -135,6 +136,12 @@
     </Compile>
     <Compile Include="UserControls\UCConnection.Designer.cs">
       <DependentUpon>UCConnection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UCImport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UCImport.Designer.cs">
+      <DependentUpon>UCImport.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UCMapping.cs">
       <SubType>UserControl</SubType>
@@ -185,6 +192,9 @@
     <EmbeddedResource Include="UserControls\UCConnection.resx">
       <DependentUpon>UCConnection.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UCImport.resx">
+      <DependentUpon>UCImport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCMapping.resx">
       <DependentUpon>UCMapping.cs</DependentUpon>
     </EmbeddedResource>
@@ -231,10 +241,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Common\Images\back_48.png" />
+    <Content Include="Common\Images\check_48.png" />
     <Content Include="Common\Images\excel_24.png" />
     <Content Include="Common\Images\excel_32.png" />
     <Content Include="Common\Images\find_32.png" />
     <Content Include="Common\Images\next_48.png" />
+    <Content Include="Common\Images\verified_32.png" />
+    <Content Include="Common\Images\verified_48.png" />
     <Content Include="init.sql" />
   </ItemGroup>
   <ItemGroup />
