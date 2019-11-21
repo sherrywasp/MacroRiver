@@ -109,6 +109,7 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\DatabaseConnection.cs" />
+    <Compile Include="Model\FailCell.cs" />
     <Compile Include="Model\FullColumns.cs" />
     <Compile Include="Model\InformationSchemaColumns.cs" />
     <Compile Include="Program.cs" />

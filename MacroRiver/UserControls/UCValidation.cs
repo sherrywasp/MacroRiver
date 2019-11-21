@@ -65,7 +65,7 @@ namespace MacroRiver.UserControls
                 {
                     var sheet = package.Workbook.Worksheets[1];
 
-                    var failCells = new List<string>();
+                    var failCells = new List<FailCell>();
                     var errorLog = String.Empty;
 
                     foreach (var item in ColMapping)
@@ -86,13 +86,14 @@ namespace MacroRiver.UserControls
                             if (item.Key == Convert.ToString(sheet.Cells[sheet.Dimension.Start.Row, col].Value))
                             {
                                 // 根据字段信息，逐行校验
-                                for (int row = sheet.Dimension.Start.Row + 1; row < sheet.Dimension.End.Row; row++)
+                                for (int row = sheet.Dimension.Start.Row + 1; row <= sheet.Dimension.End.Row; row++)
                                 {
                                     var error = String.Empty;
                                     if (!Validate(field, Convert.ToString(sheet.Cells[row, col].Value), out error))
                                     {
-                                        failCells.Add(row.ToString() + col.ToString());
-                                        errorLog += error + Environment.NewLine;
+                                        
+                                        var fc = new FailCell() { Row = row, Col = item.Key, Explanation = error };
+                                        failCells.Add(fc);
                                     }
                                 }
                             }
@@ -101,6 +102,7 @@ namespace MacroRiver.UserControls
 
                     if (failCells.Count > 0)
                     {
+                        this.dgvValidation.DataSource = failCells;
                         MetroMsgBoxUtil.Warning(this, String.Format("有 {0} 个单元格的内容未通过校验。", failCells.Count), "Warning");
                     }
                     else
@@ -116,13 +118,23 @@ namespace MacroRiver.UserControls
 
         private bool Validate(InformationSchemaColumns field, string columnValue, out string error)
         {
+            bool ret = true;
             error = String.Empty;
 
-            if (field.DATA_TYPE == "tinyint")
+            // 非空验证
+            if (String.IsNullOrEmpty(columnValue))
+            {
+                if (field.IS_NULLABLE == "NO")
+                {
+                    error = "非空验证未通过";
+                    ret = false;
+                }
+            }
+            else if (field.DATA_TYPE == "tinyint")
             {
 
             }
-            else if(field.DATA_TYPE == "smallint")
+            else if (field.DATA_TYPE == "smallint")
             {
 
             }
@@ -165,7 +177,7 @@ namespace MacroRiver.UserControls
             else if (field.DATA_TYPE == "nvarchar")
             {
 
-            }            
+            }
             else if (field.DATA_TYPE == "text")
             {
 
@@ -191,7 +203,7 @@ namespace MacroRiver.UserControls
 
             }
 
-            return true;
+            return ret;
         }
 
     }
