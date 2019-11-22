@@ -91,7 +91,6 @@ namespace MacroRiver.UserControls
                                     var error = String.Empty;
                                     if (!Validate(field, Convert.ToString(sheet.Cells[row, col].Value), out error))
                                     {
-                                        
                                         var fc = new FailCell() { Row = row, Col = item.Key, Explanation = error };
                                         failCells.Add(fc);
                                     }
@@ -100,15 +99,15 @@ namespace MacroRiver.UserControls
                         }
                     }
 
+                    this.dgvValidation.DataSource = failCells;
                     if (failCells.Count > 0)
                     {
-                        this.dgvValidation.DataSource = failCells;
                         MetroMsgBoxUtil.Warning(this, String.Format("有 {0} 个单元格的内容未通过校验。", failCells.Count), "Warning");
                     }
                     else
                     {
                         MetroMsgBoxUtil.Success(this, "数据校验通过", "Success");
-                    }
+                    }                    
                 }
 
                 this.DbConnection.ChangeDatabase(currDB);
@@ -132,75 +131,127 @@ namespace MacroRiver.UserControls
             }
             else if (field.DATA_TYPE == "tinyint")
             {
-
+                int val;
+                if (!Int32.TryParse(columnValue, out val))
+                {
+                    error = "非合法数字";
+                    ret = false;
+                }
+                else if (val < SByte.MinValue || val > SByte.MaxValue)
+                {
+                    error = "数值超出范围 [-128 ~ 127]";
+                    ret = false;
+                }
             }
             else if (field.DATA_TYPE == "smallint")
             {
-
-            }
-            else if (field.DATA_TYPE == "int")
-            {
-
+                int val;
+                if (!Int32.TryParse(columnValue, out val))
+                {
+                    error = "非合法数字";
+                    ret = false;
+                }
+                else if (val < Int16.MinValue || val > Int16.MaxValue)
+                {
+                    error = "数值超出范围 [-32,768 ~ 32,767]";
+                    ret = false;
+                }
             }
             else if (field.DATA_TYPE == "mediumint")
             {
-
+                int val;
+                if (!Int32.TryParse(columnValue, out val))
+                {
+                    error = "非合法数字";
+                    ret = false;
+                }
+                else if (val < -8388608 || val > 8388607)
+                {
+                    error = "数值超出范围 [-8,388,608 ~ 8,388,607]";
+                    ret = false;
+                }
+            }
+            else if (field.DATA_TYPE == "int")
+            {
+                int val;
+                if (!Int32.TryParse(columnValue, out val))
+                {
+                    error = "非合法数字";
+                    ret = false;
+                }
+                else if (val < Int32.MinValue || val > Int32.MaxValue)
+                {
+                    error = "数值超出范围 [-2,147,483,648 ~ 2,147,483,647]";
+                    ret = false;
+                }
             }
             else if (field.DATA_TYPE == "bigint")
             {
-
+                long val;
+                if (!Int64.TryParse(columnValue, out val))
+                {
+                    error = "非合法数字";
+                    ret = false;
+                }
+                else if (val < Int64.MinValue || val > Int64.MaxValue)
+                {
+                    error = "数值超出范围 [-9,223,372,036,854,775,808 ~ 9,223,372,036,854,775,807]";
+                    ret = false;
+                }
             }
             else if (field.DATA_TYPE == "float")
             {
-
+                float val;
+                if (!Single.TryParse(columnValue, out val))
+                {
+                    error = "非合法数字";
+                    ret = false;
+                }
             }
             else if (field.DATA_TYPE == "double")
             {
-
+                double val;
+                if (!Double.TryParse(columnValue, out val))
+                {
+                    error = "非合法数字";
+                    ret = false;
+                }
             }
             else if (field.DATA_TYPE == "decimal")
             {
-
+                decimal val;
+                if (!Decimal.TryParse(columnValue, out val))
+                {
+                    error = "非合法数字";
+                    ret = false;
+                }
             }
-            else if (field.DATA_TYPE == "char")
+            else if (field.DATA_TYPE == "char" ||
+                field.DATA_TYPE == "nchar" ||
+                field.DATA_TYPE == "varchar" ||
+                field.DATA_TYPE == "nvarchar" ||
+                field.DATA_TYPE == "text" ||
+                field.DATA_TYPE == "mediumtext" ||
+                field.DATA_TYPE == "longtext")
             {
-
+                uint maxLen = UInt32.Parse(field.CHARACTER_MAXIMUM_LENGTH);
+                if (columnValue.Length > maxLen)
+                {
+                    error = String.Format("字符数超出最大限制 [{0}]", maxLen);
+                    ret = false;
+                }
             }
-            else if (field.DATA_TYPE == "nchar")
+            else if (field.DATA_TYPE == "date" ||
+                field.DATA_TYPE == "time" ||
+                field.DATA_TYPE == "datetime" ||
+                field.DATA_TYPE == "timestamp")
             {
-
-            }
-            else if (field.DATA_TYPE == "varchar")
-            {
-
-            }
-            else if (field.DATA_TYPE == "nvarchar")
-            {
-
-            }
-            else if (field.DATA_TYPE == "text")
-            {
-
-            }
-            else if (field.DATA_TYPE == "mediumtext")
-            {
-
-            }
-            else if (field.DATA_TYPE == "longtext")
-            {
-
-            }
-            else if (field.DATA_TYPE == "time")
-            {
-
-            }
-            else if (field.DATA_TYPE == "datetime")
-            {
-
-            }
-            else
-            {
-
+                DateTime val;
+                if (!DateTime.TryParse(columnValue, out val))
+                {
+                    error = "非合法日期/时间";
+                    ret = false;
+                }
             }
 
             return ret;
