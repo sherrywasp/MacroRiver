@@ -108,6 +108,7 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\ColumnMapping.cs" />
     <Compile Include="Model\DatabaseConnection.cs" />
     <Compile Include="Model\FailCell.cs" />
     <Compile Include="Model\FullColumns.cs" />
