@@ -19,6 +19,9 @@ namespace MacroRiver.UserControls
         public string ExcelFileName { get; set; }
         public Dictionary<string, string> ColMapping { get; set; }
 
+        private List<ColumnMapping> lstColumnMapping = new List<ColumnMapping>();
+
+
         public UCValidation(IDbConnection DbConnection, string tableName, string fileName, Dictionary<string, string> colMapping)
         {
             this.DbConnection = DbConnection;
@@ -36,7 +39,7 @@ namespace MacroRiver.UserControls
 
         private void mtNext_Click(object sender, EventArgs e)
         {
-            this.Parent.Controls.Add(new UCImport(DbConnection, TableName, ExcelFileName, ColMapping));
+            this.Parent.Controls.Add(new UCImport(DbConnection, TableName, ExcelFileName, ColMapping, lstColumnMapping));
             this.Parent.Controls.Remove(this);
         }
 
@@ -85,6 +88,8 @@ namespace MacroRiver.UserControls
                             // 寻找对应列的索引
                             if (item.Key == Convert.ToString(sheet.Cells[sheet.Dimension.Start.Row, col].Value))
                             {
+                                lstColumnMapping.Add(new ColumnMapping(item.Key, item.Value, field.DATA_TYPE));
+
                                 // 根据字段信息，逐行校验
                                 for (int row = sheet.Dimension.Start.Row + 1; row <= sheet.Dimension.End.Row; row++)
                                 {
@@ -107,7 +112,7 @@ namespace MacroRiver.UserControls
                     else
                     {
                         MetroMsgBoxUtil.Success(this, "数据校验通过", "Success");
-                    }                    
+                    }
                 }
 
                 this.DbConnection.ChangeDatabase(currDB);
