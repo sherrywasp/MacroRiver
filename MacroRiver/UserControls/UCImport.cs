@@ -1,4 +1,6 @@
-﻿using MacroRiver.Model;
+﻿using Dapper;
+using MacroRiver.Common.Utils;
+using MacroRiver.Model;
 using MetroFramework.Controls;
 using OfficeOpenXml;
 using System;
@@ -6,8 +8,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Windows.Forms;
-using Dapper;
-using MacroRiver.Common.Utils;
 
 namespace MacroRiver.UserControls
 {
