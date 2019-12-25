@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Windows.Forms;
+using Dapper;
+using MacroRiver.Common.Utils;
 
 namespace MacroRiver.UserControls
 {
@@ -39,13 +41,51 @@ namespace MacroRiver.UserControls
                 {
                     var sheet = package.Workbook.Worksheets[1];
 
-                    for (int row = sheet.Dimension.Start.Row + 1; row <= sheet.Dimension.End.Row; row++)
-                    {
-                        for (int col = sheet.Dimension.Start.Column; col <= sheet.Dimension.End.Column; col++)
-                        {
+                    var sqlInsert = "REPLACE INTO " + TableName;
 
+                    var insertFields = String.Empty;
+                    foreach (var item in ColumnMappingList)
+                    {
+                        if (insertFields.Length == 0)
+                        {
+                            insertFields = item.DbColName;
+                        }
+                        else
+                        {
+                            insertFields += ", " + item.DbColName;
                         }
                     }
+
+                    sqlInsert += "(" + insertFields + ") VALUES";
+
+                    for (int row = sheet.Dimension.Start.Row + 1; row <= sheet.Dimension.End.Row; row++)
+                    {
+                        var insertValues = String.Empty;
+                        foreach (var item in ColumnMappingList)
+                        {
+                            var insertValue = Convert.ToString(sheet.Cells[row, item.ColIndex].Value);
+                            if (item.NeedSingleQuotes)
+                            {
+                                insertValue = "'" + insertValue + "'";
+                            }
+
+                            if (insertValues.Length == 0)
+                            {
+                                insertValues = insertValue;
+                            }
+                            else
+                            {
+                                insertValues += ", " + insertValue;
+                            }
+                        }
+
+                        sqlInsert += "(" + insertValues + ")";
+                        sqlInsert += row < sheet.Dimension.End.Row ? ", " : ";";
+                    }
+
+                    int affected = DbConnection.Execute(sqlInsert);
+
+                    MetroMsgBoxUtil.Success(this, "导入完成(" + affected + "行受影响)", "成功");
                 }
             }
         }

@@ -71,6 +71,8 @@ namespace MacroRiver.UserControls
                     var failCells = new List<FailCell>();
                     var errorLog = String.Empty;
 
+                    lstColumnMapping.Clear();
+
                     foreach (var item in ColMapping)
                     {
                         // 获取字段信息
@@ -88,7 +90,8 @@ namespace MacroRiver.UserControls
                             // 寻找对应列的索引
                             if (item.Key == Convert.ToString(sheet.Cells[sheet.Dimension.Start.Row, col].Value))
                             {
-                                lstColumnMapping.Add(new ColumnMapping(item.Key, item.Value, field.DATA_TYPE));
+                                // 为下一步做准备
+                                lstColumnMapping.Add(new ColumnMapping(col, item.Key, item.Value, field.DATA_TYPE));
 
                                 // 根据字段信息，逐行校验
                                 for (int row = sheet.Dimension.Start.Row + 1; row <= sheet.Dimension.End.Row; row++)
