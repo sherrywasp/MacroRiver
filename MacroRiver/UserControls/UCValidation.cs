@@ -1,5 +1,4 @@
-﻿using Dapper;
-using MacroRiver.Common.Utils;
+﻿using MacroRiver.Common.Utils;
 using MacroRiver.Model;
 using MetroFramework.Controls;
 using OfficeOpenXml;
@@ -7,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace MacroRiver.UserControls
@@ -17,18 +15,16 @@ namespace MacroRiver.UserControls
         public IDbConnection DbConnection { get; set; }
         public string TableName { get; set; }
         public string ExcelFileName { get; set; }
-        public Dictionary<string, string> ColMapping { get; set; }
-
-        private List<ColumnMapping> lstColumnMapping = new List<ColumnMapping>();
+        public List<ColumnMapping> ColumnMappingList { get; set; }
 
 
-        public UCValidation(IDbConnection DbConnection, string tableName, string fileName, Dictionary<string, string> colMapping)
+        public UCValidation(IDbConnection DbConnection, string tableName, string fileName, List<ColumnMapping> lstColumnMapping)
         {
             this.DbConnection = DbConnection;
             this.Dock = DockStyle.Fill;
             this.TableName = tableName;
             this.ExcelFileName = fileName;
-            this.ColMapping = colMapping;
+            this.ColumnMappingList = lstColumnMapping;
             InitializeComponent();
         }
 
@@ -39,7 +35,7 @@ namespace MacroRiver.UserControls
 
         private void mtNext_Click(object sender, EventArgs e)
         {
-            this.Parent.Controls.Add(new UCImport(DbConnection, TableName, ExcelFileName, ColMapping, lstColumnMapping));
+            this.Parent.Controls.Add(new UCImport(DbConnection, TableName, ExcelFileName, ColumnMappingList));
             this.Parent.Controls.Remove(this);
         }
 
@@ -55,14 +51,6 @@ namespace MacroRiver.UserControls
                 !String.IsNullOrEmpty(TableName) &&
                 !(String.IsNullOrEmpty(ExcelFileName)))
             {
-                // 获取数据库字段
-                var currDB = this.DbConnection.Database;
-                if (this.DbConnection.State == ConnectionState.Closed)
-                {
-                    this.DbConnection.Open();
-                }
-                this.DbConnection.ChangeDatabase("information_schema");
-
                 var existingFile = new FileInfo(ExcelFileName);
                 using (ExcelPackage package = new ExcelPackage(existingFile))
                 {
@@ -71,38 +59,16 @@ namespace MacroRiver.UserControls
                     var failCells = new List<FailCell>();
                     var errorLog = String.Empty;
 
-                    lstColumnMapping.Clear();
-
-                    foreach (var item in ColMapping)
+                    foreach (var item in ColumnMappingList)
                     {
-                        // 获取字段信息
-                        var select_columns = String.Format(
-                            "select column_name, is_nullable, data_type, column_type, character_maximum_length, character_octet_length, numeric_precision, numeric_scale, datetime_precision, column_key, extra, column_comment "
-                            + "from columns "
-                            + "where table_schema = '{0}' and table_name = '{1}' and column_name = '{2}'",
-                            currDB, TableName, item.Value
-                        );
-
-                        var field = DbConnection.Query<InformationSchemaColumns>(select_columns).First();
-
-                        for (int col = sheet.Dimension.Start.Column; col <= sheet.Dimension.End.Column; col++)
+                        // 根据字段信息，逐行校验
+                        for (int row = sheet.Dimension.Start.Row + 1; row <= sheet.Dimension.End.Row; row++)
                         {
-                            // 寻找对应列的索引
-                            if (item.Key == Convert.ToString(sheet.Cells[sheet.Dimension.Start.Row, col].Value))
+                            var error = String.Empty;
+                            if (!Validate(item.DbColInfo, Convert.ToString(sheet.Cells[row, item.ColIndex].Value), out error))
                             {
-                                // 为下一步做准备
-                                lstColumnMapping.Add(new ColumnMapping(col, item.Key, item.Value, field.DATA_TYPE));
-
-                                // 根据字段信息，逐行校验
-                                for (int row = sheet.Dimension.Start.Row + 1; row <= sheet.Dimension.End.Row; row++)
-                                {
-                                    var error = String.Empty;
-                                    if (!Validate(field, Convert.ToString(sheet.Cells[row, col].Value), out error))
-                                    {
-                                        var fc = new FailCell() { Row = row, Col = item.Key, Explanation = error };
-                                        failCells.Add(fc);
-                                    }
-                                }
+                                var fc = new FailCell() { Row = row, Col = item.ExcelColName, Explanation = error };
+                                failCells.Add(fc);
                             }
                         }
                     }
@@ -118,8 +84,6 @@ namespace MacroRiver.UserControls
                     }
                 }
 
-                this.DbConnection.ChangeDatabase(currDB);
-                this.DbConnection.Close();
             }
         }
 

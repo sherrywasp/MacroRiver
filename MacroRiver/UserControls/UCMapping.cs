@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using MacroRiver.Common.Utils;
+using MacroRiver.Model;
 using MetroFramework.Controls;
 using OfficeOpenXml;
 using System;
@@ -16,6 +17,8 @@ namespace MacroRiver.UserControls
         public IDbConnection DbConnection { get; set; }
         public string TableName { get; set; }
         public string ExcelFileName { get; set; }
+
+        private List<ColumnMapping> lstColumnMapping = new List<ColumnMapping>();
 
         private List<string> excelColumnHeaders = new List<string>();
         private string cellValueBeforeEdit;
@@ -83,7 +86,13 @@ namespace MacroRiver.UserControls
 
         private void mtNext_Click(object sender, EventArgs e)
         {
-            Dictionary<string, string> colMapping = new Dictionary<string, string>();
+            var currDB = this.DbConnection.Database;
+            if (this.DbConnection.State == ConnectionState.Closed)
+            {
+                this.DbConnection.Open();
+            }
+            this.DbConnection.ChangeDatabase("information_schema");
+
             for (int i = 0; i < this.dgvMapping.Rows.Count; i++)
             {
                 var excelCol = Convert.ToString(this.dgvMapping.Rows[i].Cells["ColExcelColumn"].Value);
@@ -92,12 +101,28 @@ namespace MacroRiver.UserControls
                     var dbCol = Convert.ToString(this.dgvMapping.Rows[i].Cells["ColDBColumn"].Value);
                     if (!String.IsNullOrEmpty(dbCol))
                     {
-                        colMapping[excelCol] = dbCol;
-                    }                        
+                        // 获取字段信息
+                        var select_columns = String.Format(
+                            "select column_name, is_nullable, data_type, column_type, character_maximum_length, character_octet_length, numeric_precision, numeric_scale, datetime_precision, column_key, extra, column_comment "
+                            + "from columns "
+                            + "where table_schema = '{0}' and table_name = '{1}' and column_name = '{2}'",
+                            currDB, TableName, dbCol
+                        );
+
+                        var field = DbConnection.Query<InformationSchemaColumns>(select_columns).First();
+
+                        // 因为 sheet.Dimension.Start.Column 的起始值为1, 
+                        // 而此处遍历行索引的 i 起始值为 0，
+                        // 所以需要加 1 再赋值给 ColumnMapping 的 ColIndex 属性.
+                        lstColumnMapping.Add(new ColumnMapping(i + 1, excelCol, field));    
+                    }
                 }
             }
 
-            this.Parent.Controls.Add(new UCValidation(DbConnection, TableName, ExcelFileName, colMapping));
+            this.DbConnection.ChangeDatabase(currDB);
+            this.DbConnection.Close();
+
+            this.Parent.Controls.Add(new UCValidation(DbConnection, TableName, ExcelFileName, lstColumnMapping));
             this.Parent.Controls.Remove(this);
         }
 

@@ -16,16 +16,14 @@ namespace MacroRiver.UserControls
         public IDbConnection DbConnection { get; set; }
         public string TableName { get; set; }
         public string ExcelFileName { get; set; }
-        public Dictionary<string, string> ColMapping { get; set; }
         public List<ColumnMapping> ColumnMappingList { get; set; }
 
-        public UCImport(IDbConnection DbConnection, string tableName, string fileName, Dictionary<string, string> colMapping, List<ColumnMapping> lstColumnMapping)
+        public UCImport(IDbConnection DbConnection, string tableName, string fileName, List<ColumnMapping> lstColumnMapping)
         {
             this.DbConnection = DbConnection;
             this.Dock = DockStyle.Fill;
             this.TableName = tableName;
             this.ExcelFileName = fileName;
-            this.ColMapping = colMapping;
             this.ColumnMappingList = lstColumnMapping;
             InitializeComponent();
         }
@@ -48,11 +46,11 @@ namespace MacroRiver.UserControls
                     {
                         if (insertFields.Length == 0)
                         {
-                            insertFields = item.DbColName;
+                            insertFields = item.DbColInfo.COLUMN_NAME;
                         }
                         else
                         {
-                            insertFields += ", " + item.DbColName;
+                            insertFields += ", " + item.DbColInfo.COLUMN_NAME;
                         }
                     }
 
@@ -92,7 +90,7 @@ namespace MacroRiver.UserControls
 
         private void mtBack_Click(object sender, EventArgs e)
         {
-            this.Parent.Controls.Add(new UCValidation(DbConnection, TableName, ExcelFileName, ColMapping));
+            this.Parent.Controls.Add(new UCValidation(DbConnection, TableName, ExcelFileName, ColumnMappingList));
             this.Parent.Controls.Remove(this);
         }
     }
