@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace MacroRiver.UserControls
@@ -28,7 +29,19 @@ namespace MacroRiver.UserControls
             InitializeComponent();
         }
 
-        private void mtNext_Click(object sender, EventArgs e)
+        private void mtBack_Click(object sender, EventArgs e)
+        {
+            this.Parent.Controls.Add(new UCValidation(DbConnection, TableName, ExcelFileName, ColumnMappingList));
+            this.Parent.Controls.Remove(this);
+        }
+
+        private void mtRun_Click(object sender, EventArgs e)
+        {
+            this.metroProgressSpinner1.Visible = true;
+            backgroundWorker1.RunWorkerAsync();
+        }
+
+        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             if (this.DbConnection != null &&
                 !String.IsNullOrEmpty(TableName) &&
@@ -62,7 +75,7 @@ namespace MacroRiver.UserControls
                         foreach (var item in ColumnMappingList)
                         {
                             var insertValue = Convert.ToString(sheet.Cells[row, item.ColIndex].Value);
-                            if (item.NeedSingleQuotes)
+                            if (insertValue.ToUpper() != "NULL" && item.NeedSingleQuotes)
                             {
                                 insertValue = "'" + insertValue + "'";
                             }
@@ -88,10 +101,9 @@ namespace MacroRiver.UserControls
             }
         }
 
-        private void mtBack_Click(object sender, EventArgs e)
+        private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            this.Parent.Controls.Add(new UCValidation(DbConnection, TableName, ExcelFileName, ColumnMappingList));
-            this.Parent.Controls.Remove(this);
+            this.metroProgressSpinner1.Visible = false;
         }
     }
 }

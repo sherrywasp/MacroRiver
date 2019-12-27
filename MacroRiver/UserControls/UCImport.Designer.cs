@@ -30,7 +30,9 @@
         {
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.mtBack = new MetroFramework.Controls.MetroTile();
-            this.mtNext = new MetroFramework.Controls.MetroTile();
+            this.mtRun = new MetroFramework.Controls.MetroTile();
+            this.metroProgressSpinner1 = new MetroFramework.Controls.MetroProgressSpinner();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // metroLabel1
@@ -60,28 +62,49 @@
             this.mtBack.UseTileImage = true;
             this.mtBack.Click += new System.EventHandler(this.mtBack_Click);
             // 
-            // mtNext
+            // mtRun
             // 
-            this.mtNext.ActiveControl = null;
-            this.mtNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.mtNext.BackColor = System.Drawing.Color.Transparent;
-            this.mtNext.Location = new System.Drawing.Point(733, 549);
-            this.mtNext.Name = "mtNext";
-            this.mtNext.Size = new System.Drawing.Size(64, 48);
-            this.mtNext.TabIndex = 15;
-            this.mtNext.TileImage = global::MacroRiver.Properties.Resources.next_48;
-            this.mtNext.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.mtNext.UseCustomBackColor = true;
-            this.mtNext.UseSelectable = true;
-            this.mtNext.UseTileImage = true;
-            this.mtNext.Click += new System.EventHandler(this.mtNext_Click);
+            this.mtRun.ActiveControl = null;
+            this.mtRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.mtRun.BackColor = System.Drawing.Color.Transparent;
+            this.mtRun.Location = new System.Drawing.Point(733, 549);
+            this.mtRun.Name = "mtRun";
+            this.mtRun.Size = new System.Drawing.Size(64, 48);
+            this.mtRun.TabIndex = 15;
+            this.mtRun.TileImage = global::MacroRiver.Properties.Resources.play_48;
+            this.mtRun.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.mtRun.UseCustomBackColor = true;
+            this.mtRun.UseSelectable = true;
+            this.mtRun.UseTileImage = true;
+            this.mtRun.Click += new System.EventHandler(this.mtRun_Click);
+            // 
+            // metroProgressSpinner1
+            // 
+            this.metroProgressSpinner1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.metroProgressSpinner1.BackColor = System.Drawing.Color.White;
+            this.metroProgressSpinner1.Location = new System.Drawing.Point(3, 547);
+            this.metroProgressSpinner1.Maximum = 3;
+            this.metroProgressSpinner1.Name = "metroProgressSpinner1";
+            this.metroProgressSpinner1.Size = new System.Drawing.Size(50, 50);
+            this.metroProgressSpinner1.Speed = 2F;
+            this.metroProgressSpinner1.Style = MetroFramework.MetroColorStyle.Silver;
+            this.metroProgressSpinner1.TabIndex = 18;
+            this.metroProgressSpinner1.UseSelectable = true;
+            this.metroProgressSpinner1.Value = 1;
+            this.metroProgressSpinner1.Visible = false;
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // UCImport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.metroProgressSpinner1);
             this.Controls.Add(this.mtBack);
-            this.Controls.Add(this.mtNext);
+            this.Controls.Add(this.mtRun);
             this.Controls.Add(this.metroLabel1);
             this.Name = "UCImport";
             this.Size = new System.Drawing.Size(800, 600);
@@ -94,6 +117,8 @@
 
         private MetroFramework.Controls.MetroLabel metroLabel1;
         private MetroFramework.Controls.MetroTile mtBack;
-        private MetroFramework.Controls.MetroTile mtNext;
+        private MetroFramework.Controls.MetroTile mtRun;
+        private MetroFramework.Controls.MetroProgressSpinner metroProgressSpinner1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

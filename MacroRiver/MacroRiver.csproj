@@ -251,6 +251,7 @@
     <Content Include="Common\Images\verified_32.png" />
     <Content Include="Common\Images\verified_48.png" />
     <Content Include="init.sql" />
+    <None Include="Resources\play_48.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

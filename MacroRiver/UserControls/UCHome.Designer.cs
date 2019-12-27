@@ -41,7 +41,7 @@
             this.mBtnStart.Name = "mBtnStart";
             this.mBtnStart.Size = new System.Drawing.Size(151, 37);
             this.mBtnStart.TabIndex = 0;
-            this.mBtnStart.Text = "开始使用";
+            this.mBtnStart.Text = "Start";
             this.mBtnStart.UseSelectable = true;
             this.mBtnStart.Click += new System.EventHandler(this.mBtnStart_Click);
             // 

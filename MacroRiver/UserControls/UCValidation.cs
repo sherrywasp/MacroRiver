@@ -17,6 +17,7 @@ namespace MacroRiver.UserControls
         public string ExcelFileName { get; set; }
         public List<ColumnMapping> ColumnMappingList { get; set; }
 
+        private List<FailCell> failCells = new List<FailCell>();
 
         public UCValidation(IDbConnection DbConnection, string tableName, string fileName, List<ColumnMapping> lstColumnMapping)
         {
@@ -47,6 +48,13 @@ namespace MacroRiver.UserControls
 
         private void mtValidate_Click(object sender, EventArgs e)
         {
+            this.metroProgressSpinner1.Visible = true;
+            this.metroProgressSpinner1.CustomBackground = true;
+            this.backgroundWorker1.RunWorkerAsync();
+        }
+
+        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
             if (this.DbConnection != null &&
                 !String.IsNullOrEmpty(TableName) &&
                 !(String.IsNullOrEmpty(ExcelFileName)))
@@ -56,7 +64,6 @@ namespace MacroRiver.UserControls
                 {
                     var sheet = package.Workbook.Worksheets[1];
 
-                    var failCells = new List<FailCell>();
                     var errorLog = String.Empty;
 
                     foreach (var item in ColumnMappingList)
@@ -72,18 +79,22 @@ namespace MacroRiver.UserControls
                             }
                         }
                     }
-
-                    this.dgvValidation.DataSource = failCells;
-                    if (failCells.Count > 0)
-                    {
-                        MetroMsgBoxUtil.Warning(this, String.Format("有 {0} 个单元格的内容未通过校验。", failCells.Count), "Warning");
-                    }
-                    else
-                    {
-                        MetroMsgBoxUtil.Success(this, "数据校验通过", "Success");
-                    }
                 }
+            }
+        }
 
+        private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            this.metroProgressSpinner1.Visible = false;
+
+            this.dgvValidation.DataSource = failCells;
+            if (failCells.Count > 0)
+            {
+                MetroMsgBoxUtil.Warning(this, String.Format("有 {0} 个单元格的内容未通过校验。", failCells.Count), "Warning");
+            }
+            else
+            {
+                MetroMsgBoxUtil.Success(this, "数据校验通过", "Success");
             }
         }
 
@@ -228,6 +239,5 @@ namespace MacroRiver.UserControls
 
             return ret;
         }
-
     }
 }
