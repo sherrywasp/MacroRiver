@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace MacroRiver.UserControls
@@ -18,6 +17,8 @@ namespace MacroRiver.UserControls
         public string TableName { get; set; }
         public string ExcelFileName { get; set; }
         public List<ColumnMapping> ColumnMappingList { get; set; }
+
+        private string operationFlag;
 
         private string sqlGenerated;
 
@@ -39,6 +40,16 @@ namespace MacroRiver.UserControls
 
         private void mtRun_Click(object sender, EventArgs e)
         {
+            MetroMsgBoxUtil.Warning(this, "该功能暂停使用", "Sorry");
+
+            //operationFlag = "excute";
+            //this.metroProgressSpinner1.Visible = true;
+            //backgroundWorker1.RunWorkerAsync();
+        }
+
+        private void mtSave_Click(object sender, EventArgs e)
+        {
+            operationFlag = "save";
             this.metroProgressSpinner1.Visible = true;
             backgroundWorker1.RunWorkerAsync();
         }
@@ -108,17 +119,17 @@ namespace MacroRiver.UserControls
         {
             this.metroProgressSpinner1.Visible = false;
 
-            //int affected = ExcuteSql();
-            //MetroMsgBoxUtil.Success(this, "导入完成(" + affected + "行受影响)", "成功");
-
-            try
+            switch (operationFlag)
             {
-                SaveSql();
-                MetroMsgBoxUtil.Success(this, "已保存", "成功");
-            }
-            catch (Exception ex)
-            {
-                MetroMsgBoxUtil.Fail(this, ex.Message, "失败");
+                case "excute":
+                    int affected = ExcuteSql();
+                    MetroMsgBoxUtil.Success(this, "导入完成(" + affected + "行受影响)", "成功");
+                    break;
+                case "save":
+                    SaveSql();
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -140,10 +151,19 @@ namespace MacroRiver.UserControls
             {
                 if (this.saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    using (StreamWriter sw = new StreamWriter(this.saveFileDialog1.FileName))
+                    try
                     {
-                        sw.Write(this.sqlGenerated);
+                        using (StreamWriter sw = new StreamWriter(this.saveFileDialog1.FileName))
+                        {
+                            sw.Write(this.sqlGenerated);
+                            MetroMsgBoxUtil.Success(this, "已保存", "成功");
+                        }
                     }
+                    catch (Exception ex)
+                    {
+                        MetroMsgBoxUtil.Fail(this, ex.Message, "失败");
+                    }
+
                 }
             }
         }

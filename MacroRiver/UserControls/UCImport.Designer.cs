@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
-            this.mtBack = new MetroFramework.Controls.MetroTile();
-            this.mtRun = new MetroFramework.Controls.MetroTile();
             this.metroProgressSpinner1 = new MetroFramework.Controls.MetroProgressSpinner();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.mtSave = new MetroFramework.Controls.MetroTile();
+            this.mtBack = new MetroFramework.Controls.MetroTile();
+            this.mtRun = new MetroFramework.Controls.MetroTile();
             this.SuspendLayout();
             // 
             // metroLabel1
@@ -46,38 +47,6 @@
             this.metroLabel1.Size = new System.Drawing.Size(50, 25);
             this.metroLabel1.TabIndex = 11;
             this.metroLabel1.Text = "导入";
-            // 
-            // mtBack
-            // 
-            this.mtBack.ActiveControl = null;
-            this.mtBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.mtBack.BackColor = System.Drawing.Color.Transparent;
-            this.mtBack.Location = new System.Drawing.Point(663, 549);
-            this.mtBack.Name = "mtBack";
-            this.mtBack.Size = new System.Drawing.Size(64, 48);
-            this.mtBack.TabIndex = 16;
-            this.mtBack.TileImage = global::MacroRiver.Properties.Resources.back_48;
-            this.mtBack.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.mtBack.UseCustomBackColor = true;
-            this.mtBack.UseSelectable = true;
-            this.mtBack.UseTileImage = true;
-            this.mtBack.Click += new System.EventHandler(this.mtBack_Click);
-            // 
-            // mtRun
-            // 
-            this.mtRun.ActiveControl = null;
-            this.mtRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.mtRun.BackColor = System.Drawing.Color.Transparent;
-            this.mtRun.Location = new System.Drawing.Point(733, 549);
-            this.mtRun.Name = "mtRun";
-            this.mtRun.Size = new System.Drawing.Size(64, 48);
-            this.mtRun.TabIndex = 15;
-            this.mtRun.TileImage = global::MacroRiver.Properties.Resources.play_48;
-            this.mtRun.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.mtRun.UseCustomBackColor = true;
-            this.mtRun.UseSelectable = true;
-            this.mtRun.UseTileImage = true;
-            this.mtRun.Click += new System.EventHandler(this.mtRun_Click);
             // 
             // metroProgressSpinner1
             // 
@@ -104,10 +73,59 @@
             this.saveFileDialog1.Filter = "SQL 脚本|*.sql";
             this.saveFileDialog1.Title = "导入脚本另存为";
             // 
+            // mtSave
+            // 
+            this.mtSave.ActiveControl = null;
+            this.mtSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.mtSave.BackColor = System.Drawing.Color.Transparent;
+            this.mtSave.Location = new System.Drawing.Point(663, 549);
+            this.mtSave.Name = "mtSave";
+            this.mtSave.Size = new System.Drawing.Size(64, 48);
+            this.mtSave.TabIndex = 19;
+            this.mtSave.TileImage = global::MacroRiver.Properties.Resources.save_48;
+            this.mtSave.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.mtSave.UseCustomBackColor = true;
+            this.mtSave.UseSelectable = true;
+            this.mtSave.UseTileImage = true;
+            this.mtSave.Click += new System.EventHandler(this.mtSave_Click);
+            // 
+            // mtBack
+            // 
+            this.mtBack.ActiveControl = null;
+            this.mtBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.mtBack.BackColor = System.Drawing.Color.Transparent;
+            this.mtBack.Location = new System.Drawing.Point(593, 549);
+            this.mtBack.Name = "mtBack";
+            this.mtBack.Size = new System.Drawing.Size(64, 48);
+            this.mtBack.TabIndex = 16;
+            this.mtBack.TileImage = global::MacroRiver.Properties.Resources.back_48;
+            this.mtBack.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.mtBack.UseCustomBackColor = true;
+            this.mtBack.UseSelectable = true;
+            this.mtBack.UseTileImage = true;
+            this.mtBack.Click += new System.EventHandler(this.mtBack_Click);
+            // 
+            // mtRun
+            // 
+            this.mtRun.ActiveControl = null;
+            this.mtRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.mtRun.BackColor = System.Drawing.Color.Transparent;
+            this.mtRun.Location = new System.Drawing.Point(733, 549);
+            this.mtRun.Name = "mtRun";
+            this.mtRun.Size = new System.Drawing.Size(64, 48);
+            this.mtRun.TabIndex = 15;
+            this.mtRun.TileImage = global::MacroRiver.Properties.Resources.play_48;
+            this.mtRun.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.mtRun.UseCustomBackColor = true;
+            this.mtRun.UseSelectable = true;
+            this.mtRun.UseTileImage = true;
+            this.mtRun.Click += new System.EventHandler(this.mtRun_Click);
+            // 
             // UCImport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.mtSave);
             this.Controls.Add(this.metroProgressSpinner1);
             this.Controls.Add(this.mtBack);
             this.Controls.Add(this.mtRun);
@@ -127,5 +145,6 @@
         private MetroFramework.Controls.MetroProgressSpinner metroProgressSpinner1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private MetroFramework.Controls.MetroTile mtSave;
     }
 }

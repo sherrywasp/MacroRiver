@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
+﻿using MetroFramework.Controls;
+using System;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using MetroFramework.Controls;
 
 namespace MacroRiver.UserControls
 {

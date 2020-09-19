@@ -124,6 +124,9 @@
   <data name="verified_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Common\Images\verified_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="play_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Common\Images\play_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="excel_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Common\Images\excel_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -142,7 +145,7 @@
   <data name="check_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Common\Images\check_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="play_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Common\Images\play_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="save_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Common\Images\save_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
