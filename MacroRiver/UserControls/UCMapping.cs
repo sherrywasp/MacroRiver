@@ -20,7 +20,9 @@ namespace MacroRiver.UserControls
 
         private List<ColumnMapping> lstColumnMapping = new List<ColumnMapping>();
 
-        private List<string> excelColumnHeaders = new List<string>();
+        private List<string> excelColumnHeaderNameList = new List<string>();
+        private List<int> excelColumnHeaderIndexList = new List<int>();
+
         private string cellValueBeforeEdit;
 
         public UCMapping(IDbConnection DbConnection, string tableName, string fileName)
@@ -57,11 +59,12 @@ namespace MacroRiver.UserControls
 
                     for (int col = sheet.Dimension.Start.Column; col <= sheet.Dimension.End.Column; col++)
                     {
-                        this.excelColumnHeaders.Add(Convert.ToString(sheet.Cells[sheet.Dimension.Start.Row, col].Value));
+                        this.excelColumnHeaderIndexList.Add(col);
+                        this.excelColumnHeaderNameList.Add(Convert.ToString(sheet.Cells[sheet.Dimension.Start.Row, col].Value));
                     }
                 }
 
-                var loopTo = Math.Max(dbColumns.Count, this.excelColumnHeaders.Count);
+                var loopTo = Math.Max(dbColumns.Count, this.excelColumnHeaderNameList.Count);
                 var dt = new DataTable();
                 dt.Columns.Add("DBCol");
                 dt.Columns.Add("Mapping");
@@ -71,7 +74,7 @@ namespace MacroRiver.UserControls
                     var row = dt.NewRow();
                     row[0] = i < dbColumns.Count ? dbColumns[i] : null;
                     row[1] = "-->";
-                    row[2] = i < this.excelColumnHeaders.Count ? this.excelColumnHeaders[i] : null;
+                    row[2] = i < this.excelColumnHeaderNameList.Count ? this.excelColumnHeaderNameList[i] : null;
                     dt.Rows.Add(row);
                 }
                 this.dgvMapping.AutoGenerateColumns = false;
@@ -95,8 +98,8 @@ namespace MacroRiver.UserControls
 
             for (int i = 0; i < this.dgvMapping.Rows.Count; i++)
             {
-                var excelCol = Convert.ToString(this.dgvMapping.Rows[i].Cells["ColExcelColumn"].Value);
-                if (!String.IsNullOrEmpty(excelCol))
+                var excelColName = Convert.ToString(this.dgvMapping.Rows[i].Cells["ColExcelColumn"].Value);
+                if (!String.IsNullOrEmpty(excelColName))
                 {
                     var dbCol = Convert.ToString(this.dgvMapping.Rows[i].Cells["ColDBColumn"].Value);
                     if (!String.IsNullOrEmpty(dbCol))
@@ -114,7 +117,11 @@ namespace MacroRiver.UserControls
                         // 因为 sheet.Dimension.Start.Column 的起始值为1, 
                         // 而此处遍历行索引的 i 起始值为 0，
                         // 所以需要加 1 再赋值给 ColumnMapping 的 ColIndex 属性.
-                        lstColumnMapping.Add(new ColumnMapping(i + 1, excelCol, field));    
+
+
+                        int index = this.excelColumnHeaderNameList.IndexOf(excelColName);
+                        int excelColIndex = this.excelColumnHeaderIndexList[index];
+                        lstColumnMapping.Add(new ColumnMapping(excelColIndex, excelColName, field));
                     }
                 }
             }
@@ -135,7 +142,7 @@ namespace MacroRiver.UserControls
         private void dgvMapping_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             var colName = Convert.ToString(dgvMapping.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
-            if (!String.IsNullOrEmpty(colName) && !excelColumnHeaders.Contains(colName.Trim()))
+            if (!String.IsNullOrEmpty(colName) && !excelColumnHeaderNameList.Contains(colName.Trim()))
             {
                 MetroMsgBoxUtil.Fail(this, String.Format("不存在名为\"{0}\"的列头。", colName), "列头错误");
                 this.dgvMapping.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = cellValueBeforeEdit;

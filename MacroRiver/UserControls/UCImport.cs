@@ -19,6 +19,8 @@ namespace MacroRiver.UserControls
         public string ExcelFileName { get; set; }
         public List<ColumnMapping> ColumnMappingList { get; set; }
 
+        private string sqlGenerated;
+
         public UCImport(IDbConnection DbConnection, string tableName, string fileName, List<ColumnMapping> lstColumnMapping)
         {
             this.DbConnection = DbConnection;
@@ -52,7 +54,7 @@ namespace MacroRiver.UserControls
                 {
                     var sheet = package.Workbook.Worksheets[1];
 
-                    var sqlInsert = "REPLACE INTO " + TableName;
+                    //var sqlInsert = "REPLACE INTO " + TableName;
 
                     var insertFields = String.Empty;
                     foreach (var item in ColumnMappingList)
@@ -67,10 +69,13 @@ namespace MacroRiver.UserControls
                         }
                     }
 
-                    sqlInsert += "(" + insertFields + ") VALUES";
+                    //sqlInsert += "(" + insertFields + ") VALUES";
 
+                    string sqlInsert = "";
                     for (int row = sheet.Dimension.Start.Row + 1; row <= sheet.Dimension.End.Row; row++)
                     {
+                        sqlInsert += "INSERT INTO " + TableName + "(" + insertFields + ") VALUES";
+
                         var insertValues = String.Empty;
                         foreach (var item in ColumnMappingList)
                         {
@@ -90,13 +95,11 @@ namespace MacroRiver.UserControls
                             }
                         }
 
-                        sqlInsert += "(" + insertValues + ")";
-                        sqlInsert += row < sheet.Dimension.End.Row ? ", " : ";";
+                        sqlInsert += "(" + insertValues + ");\r\n";
+                        //sqlInsert += row < sheet.Dimension.End.Row ? ", " : ";";
                     }
 
-                    int affected = DbConnection.Execute(sqlInsert);
-
-                    MetroMsgBoxUtil.Success(this, "导入完成(" + affected + "行受影响)", "成功");
+                    this.sqlGenerated = sqlInsert;
                 }
             }
         }
@@ -104,6 +107,45 @@ namespace MacroRiver.UserControls
         private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             this.metroProgressSpinner1.Visible = false;
+
+            //int affected = ExcuteSql();
+            //MetroMsgBoxUtil.Success(this, "导入完成(" + affected + "行受影响)", "成功");
+
+            try
+            {
+                SaveSql();
+                MetroMsgBoxUtil.Success(this, "已保存", "成功");
+            }
+            catch (Exception ex)
+            {
+                MetroMsgBoxUtil.Fail(this, ex.Message, "失败");
+            }
+        }
+
+        private int ExcuteSql()
+        {
+            int ret = 0;
+
+            if (!String.IsNullOrEmpty(this.sqlGenerated))
+            {
+                ret = DbConnection.Execute(this.sqlGenerated);
+            }
+
+            return ret;
+        }
+
+        private void SaveSql()
+        {
+            if (!String.IsNullOrEmpty(this.sqlGenerated))
+            {
+                if (this.saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    using (StreamWriter sw = new StreamWriter(this.saveFileDialog1.FileName))
+                    {
+                        sw.Write(this.sqlGenerated);
+                    }
+                }
+            }
         }
     }
 }

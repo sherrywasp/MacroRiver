@@ -33,6 +33,7 @@
             this.mtRun = new MetroFramework.Controls.MetroTile();
             this.metroProgressSpinner1 = new MetroFramework.Controls.MetroProgressSpinner();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // metroLabel1
@@ -98,6 +99,11 @@
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.Filter = "SQL 脚本|*.sql";
+            this.saveFileDialog1.Title = "导入脚本另存为";
+            // 
             // UCImport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -120,5 +126,6 @@
         private MetroFramework.Controls.MetroTile mtRun;
         private MetroFramework.Controls.MetroProgressSpinner metroProgressSpinner1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
