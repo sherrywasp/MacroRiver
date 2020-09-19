@@ -93,6 +93,10 @@ namespace MacroRiver.UserControls
                         foreach (var item in ColumnMappingList)
                         {
                             var insertValue = Convert.ToString(sheet.Cells[row, item.ColIndex].Value);
+                            if (this.mchkTrim.Checked)
+                            {
+                                insertValue = insertValue.Trim();
+                            }
                             if (this.mchkRemoveWrap.Checked)
                             {
                                 insertValue = insertValue.Replace("\n", String.Empty);

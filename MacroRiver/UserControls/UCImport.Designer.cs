@@ -40,6 +40,7 @@
             this.mchkUseReplaceInto = new MetroFramework.Controls.MetroCheckBox();
             this.mchkUseRawForFunc = new MetroFramework.Controls.MetroCheckBox();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
+            this.mchkTrim = new MetroFramework.Controls.MetroCheckBox();
             this.SuspendLayout();
             // 
             // metroLabel1
@@ -129,8 +130,10 @@
             // mchkRemoveWrap
             // 
             this.mchkRemoveWrap.AutoSize = true;
+            this.mchkRemoveWrap.Checked = true;
+            this.mchkRemoveWrap.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mchkRemoveWrap.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.mchkRemoveWrap.Location = new System.Drawing.Point(47, 82);
+            this.mchkRemoveWrap.Location = new System.Drawing.Point(47, 116);
             this.mchkRemoveWrap.Name = "mchkRemoveWrap";
             this.mchkRemoveWrap.Size = new System.Drawing.Size(237, 25);
             this.mchkRemoveWrap.TabIndex = 20;
@@ -141,7 +144,7 @@
             // 
             this.mchkSingleInsert.AutoSize = true;
             this.mchkSingleInsert.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.mchkSingleInsert.Location = new System.Drawing.Point(47, 232);
+            this.mchkSingleInsert.Location = new System.Drawing.Point(47, 260);
             this.mchkSingleInsert.Name = "mchkSingleInsert";
             this.mchkSingleInsert.Size = new System.Drawing.Size(184, 25);
             this.mchkSingleInsert.TabIndex = 21;
@@ -152,7 +155,7 @@
             // 
             this.mchkUseReplaceInto.AutoSize = true;
             this.mchkUseReplaceInto.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.mchkUseReplaceInto.Location = new System.Drawing.Point(47, 182);
+            this.mchkUseReplaceInto.Location = new System.Drawing.Point(47, 212);
             this.mchkUseReplaceInto.Name = "mchkUseReplaceInto";
             this.mchkUseReplaceInto.Size = new System.Drawing.Size(187, 25);
             this.mchkUseReplaceInto.TabIndex = 22;
@@ -162,8 +165,10 @@
             // mchkUseRawForFunc
             // 
             this.mchkUseRawForFunc.AutoSize = true;
+            this.mchkUseRawForFunc.Checked = true;
+            this.mchkUseRawForFunc.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mchkUseRawForFunc.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.mchkUseRawForFunc.Location = new System.Drawing.Point(47, 132);
+            this.mchkUseRawForFunc.Location = new System.Drawing.Point(47, 164);
             this.mchkUseRawForFunc.Name = "mchkUseRawForFunc";
             this.mchkUseRawForFunc.Size = new System.Drawing.Size(309, 25);
             this.mchkUseRawForFunc.TabIndex = 23;
@@ -173,16 +178,30 @@
             // metroLabel2
             // 
             this.metroLabel2.AutoSize = true;
-            this.metroLabel2.Location = new System.Drawing.Point(362, 138);
+            this.metroLabel2.Location = new System.Drawing.Point(362, 170);
             this.metroLabel2.Name = "metroLabel2";
             this.metroLabel2.Size = new System.Drawing.Size(229, 19);
             this.metroLabel2.TabIndex = 24;
             this.metroLabel2.Text = "（视为SQL函数，生成时不加引号）";
             // 
+            // mchkTrim
+            // 
+            this.mchkTrim.AutoSize = true;
+            this.mchkTrim.Checked = true;
+            this.mchkTrim.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mchkTrim.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.mchkTrim.Location = new System.Drawing.Point(47, 68);
+            this.mchkTrim.Name = "mchkTrim";
+            this.mchkTrim.Size = new System.Drawing.Size(275, 25);
+            this.mchkTrim.TabIndex = 25;
+            this.mchkTrim.Text = "去除单元格内容中的首尾空格";
+            this.mchkTrim.UseSelectable = true;
+            // 
             // UCImport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.mchkTrim);
             this.Controls.Add(this.metroLabel2);
             this.Controls.Add(this.mchkUseRawForFunc);
             this.Controls.Add(this.mchkUseReplaceInto);
@@ -214,5 +233,6 @@
         private MetroFramework.Controls.MetroCheckBox mchkUseReplaceInto;
         private MetroFramework.Controls.MetroCheckBox mchkUseRawForFunc;
         private MetroFramework.Controls.MetroLabel metroLabel2;
+        private MetroFramework.Controls.MetroCheckBox mchkTrim;
     }
 }
