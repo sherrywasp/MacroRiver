@@ -35,6 +35,11 @@
             this.mtSave = new MetroFramework.Controls.MetroTile();
             this.mtBack = new MetroFramework.Controls.MetroTile();
             this.mtRun = new MetroFramework.Controls.MetroTile();
+            this.mchkRemoveWrap = new MetroFramework.Controls.MetroCheckBox();
+            this.mchkSingleInsert = new MetroFramework.Controls.MetroCheckBox();
+            this.mchkUseReplaceInto = new MetroFramework.Controls.MetroCheckBox();
+            this.mchkUseRawForFunc = new MetroFramework.Controls.MetroCheckBox();
+            this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.SuspendLayout();
             // 
             // metroLabel1
@@ -121,10 +126,68 @@
             this.mtRun.UseTileImage = true;
             this.mtRun.Click += new System.EventHandler(this.mtRun_Click);
             // 
+            // mchkRemoveWrap
+            // 
+            this.mchkRemoveWrap.AutoSize = true;
+            this.mchkRemoveWrap.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.mchkRemoveWrap.Location = new System.Drawing.Point(47, 82);
+            this.mchkRemoveWrap.Name = "mchkRemoveWrap";
+            this.mchkRemoveWrap.Size = new System.Drawing.Size(237, 25);
+            this.mchkRemoveWrap.TabIndex = 20;
+            this.mchkRemoveWrap.Text = "去除单元格内容中的换行";
+            this.mchkRemoveWrap.UseSelectable = true;
+            // 
+            // mchkSingleInsert
+            // 
+            this.mchkSingleInsert.AutoSize = true;
+            this.mchkSingleInsert.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.mchkSingleInsert.Location = new System.Drawing.Point(47, 232);
+            this.mchkSingleInsert.Name = "mchkSingleInsert";
+            this.mchkSingleInsert.Size = new System.Drawing.Size(184, 25);
+            this.mchkSingleInsert.TabIndex = 21;
+            this.mchkSingleInsert.Text = "生成单条 SQL 语句";
+            this.mchkSingleInsert.UseSelectable = true;
+            // 
+            // mchkUseReplaceInto
+            // 
+            this.mchkUseReplaceInto.AutoSize = true;
+            this.mchkUseReplaceInto.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.mchkUseReplaceInto.Location = new System.Drawing.Point(47, 182);
+            this.mchkUseReplaceInto.Name = "mchkUseReplaceInto";
+            this.mchkUseReplaceInto.Size = new System.Drawing.Size(187, 25);
+            this.mchkUseReplaceInto.TabIndex = 22;
+            this.mchkUseReplaceInto.Text = "使用 REPLACE INTO";
+            this.mchkUseReplaceInto.UseSelectable = true;
+            // 
+            // mchkUseRawForFunc
+            // 
+            this.mchkUseRawForFunc.AutoSize = true;
+            this.mchkUseRawForFunc.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.mchkUseRawForFunc.Location = new System.Drawing.Point(47, 132);
+            this.mchkUseRawForFunc.Name = "mchkUseRawForFunc";
+            this.mchkUseRawForFunc.Size = new System.Drawing.Size(309, 25);
+            this.mchkUseRawForFunc.TabIndex = 23;
+            this.mchkUseRawForFunc.Text = "原样输出以 “()” 结尾的单元格内容";
+            this.mchkUseRawForFunc.UseSelectable = true;
+            // 
+            // metroLabel2
+            // 
+            this.metroLabel2.AutoSize = true;
+            this.metroLabel2.Location = new System.Drawing.Point(362, 138);
+            this.metroLabel2.Name = "metroLabel2";
+            this.metroLabel2.Size = new System.Drawing.Size(229, 19);
+            this.metroLabel2.TabIndex = 24;
+            this.metroLabel2.Text = "（视为SQL函数，生成时不加引号）";
+            // 
             // UCImport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.metroLabel2);
+            this.Controls.Add(this.mchkUseRawForFunc);
+            this.Controls.Add(this.mchkUseReplaceInto);
+            this.Controls.Add(this.mchkSingleInsert);
+            this.Controls.Add(this.mchkRemoveWrap);
             this.Controls.Add(this.mtSave);
             this.Controls.Add(this.metroProgressSpinner1);
             this.Controls.Add(this.mtBack);
@@ -146,5 +209,10 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private MetroFramework.Controls.MetroTile mtSave;
+        private MetroFramework.Controls.MetroCheckBox mchkRemoveWrap;
+        private MetroFramework.Controls.MetroCheckBox mchkSingleInsert;
+        private MetroFramework.Controls.MetroCheckBox mchkUseReplaceInto;
+        private MetroFramework.Controls.MetroCheckBox mchkUseRawForFunc;
+        private MetroFramework.Controls.MetroLabel metroLabel2;
     }
 }

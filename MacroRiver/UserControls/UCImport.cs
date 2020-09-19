@@ -65,7 +65,9 @@ namespace MacroRiver.UserControls
                 {
                     var sheet = package.Workbook.Worksheets[1];
 
-                    //var sqlInsert = "REPLACE INTO " + TableName;
+                    var commandStart = this.mchkUseReplaceInto.Checked ? "REPLACE" : "INSERT";
+
+                    var sqlInsertSingle = commandStart + " INTO " + TableName;
 
                     var insertFields = String.Empty;
                     foreach (var item in ColumnMappingList)
@@ -80,20 +82,27 @@ namespace MacroRiver.UserControls
                         }
                     }
 
-                    //sqlInsert += "(" + insertFields + ") VALUES";
+                    sqlInsertSingle += "(" + insertFields + ") VALUES";
 
-                    string sqlInsert = "";
+                    var sqlInsert = "";
                     for (int row = sheet.Dimension.Start.Row + 1; row <= sheet.Dimension.End.Row; row++)
                     {
-                        sqlInsert += "INSERT INTO " + TableName + "(" + insertFields + ") VALUES";
+                        sqlInsert += commandStart + " INTO " + TableName + "(" + insertFields + ") VALUES";
 
                         var insertValues = String.Empty;
                         foreach (var item in ColumnMappingList)
                         {
                             var insertValue = Convert.ToString(sheet.Cells[row, item.ColIndex].Value);
+                            if (this.mchkRemoveWrap.Checked)
+                            {
+                                insertValue = insertValue.Replace("\n", String.Empty);
+                            }
                             if (insertValue.ToUpper() != "NULL" && item.NeedSingleQuotes)
                             {
-                                insertValue = "'" + insertValue + "'";
+                                if (!insertValue.EndsWith("()") || !this.mchkUseRawForFunc.Checked)
+                                {
+                                    insertValue = "'" + insertValue + "'";
+                                }
                             }
 
                             if (insertValues.Length == 0)
@@ -107,10 +116,12 @@ namespace MacroRiver.UserControls
                         }
 
                         sqlInsert += "(" + insertValues + ");\r\n";
-                        //sqlInsert += row < sheet.Dimension.End.Row ? ", " : ";";
+
+                        sqlInsertSingle += "(" + insertValues + ")";
+                        sqlInsertSingle += row < sheet.Dimension.End.Row ? ", " : ";";
                     }
 
-                    this.sqlGenerated = sqlInsert;
+                    this.sqlGenerated = this.mchkSingleInsert.Checked ? sqlInsertSingle : sqlInsert;
                 }
             }
         }
