@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.dgvValidation = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mtValidate = new MetroFramework.Controls.MetroTile();
             this.mtBack = new MetroFramework.Controls.MetroTile();
             this.mtNext = new MetroFramework.Controls.MetroTile();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.metroProgressSpinner1 = new MetroFramework.Controls.MetroProgressSpinner();
+            this.ColRow = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColExplanation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvValidation)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,27 +67,27 @@
             this.dgvValidation.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvValidation.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvValidation.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("微软雅黑", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvValidation.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvValidation.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvValidation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvValidation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3});
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Segoe UI Emoji", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvValidation.DefaultCellStyle = dataGridViewCellStyle14;
+            this.ColRow,
+            this.ColCol,
+            this.ColExplanation});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI Emoji", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvValidation.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvValidation.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dgvValidation.Location = new System.Drawing.Point(0, 40);
             this.dgvValidation.Margin = new System.Windows.Forms.Padding(0);
@@ -99,33 +99,6 @@
             this.dgvValidation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgvValidation.Size = new System.Drawing.Size(800, 506);
             this.dgvValidation.TabIndex = 15;
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column1.DataPropertyName = "Row";
-            this.Column1.FillWeight = 99.47188F;
-            this.Column1.HeaderText = "行";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column2.DataPropertyName = "Col";
-            this.Column2.FillWeight = 152.2843F;
-            this.Column2.HeaderText = "列";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column3.DataPropertyName = "Explanation";
-            this.Column3.FillWeight = 48.24385F;
-            this.Column3.HeaderText = "说明";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
             // 
             // mtValidate
             // 
@@ -200,6 +173,33 @@
             this.metroProgressSpinner1.Value = 1;
             this.metroProgressSpinner1.Visible = false;
             // 
+            // ColRow
+            // 
+            this.ColRow.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColRow.DataPropertyName = "Row";
+            this.ColRow.FillWeight = 99.47188F;
+            this.ColRow.HeaderText = "行";
+            this.ColRow.Name = "ColRow";
+            this.ColRow.ReadOnly = true;
+            // 
+            // ColCol
+            // 
+            this.ColCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColCol.DataPropertyName = "Col";
+            this.ColCol.FillWeight = 152.2843F;
+            this.ColCol.HeaderText = "列";
+            this.ColCol.Name = "ColCol";
+            this.ColCol.ReadOnly = true;
+            // 
+            // ColExplanation
+            // 
+            this.ColExplanation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColExplanation.DataPropertyName = "Explanation";
+            this.ColExplanation.FillWeight = 48.24385F;
+            this.ColExplanation.HeaderText = "说明";
+            this.ColExplanation.Name = "ColExplanation";
+            this.ColExplanation.ReadOnly = true;
+            // 
             // UCValidation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -226,10 +226,10 @@
         private MetroFramework.Controls.MetroTile mtNext;
         private System.Windows.Forms.DataGridView dgvValidation;
         private MetroFramework.Controls.MetroTile mtValidate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private MetroFramework.Controls.MetroProgressSpinner metroProgressSpinner1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColRow;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColExplanation;
     }
 }

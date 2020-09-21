@@ -93,14 +93,25 @@ namespace MacroRiver.UserControls
                         foreach (var item in ColumnMappingList)
                         {
                             var insertValue = Convert.ToString(sheet.Cells[row, item.ColIndex].Value);
+
                             if (this.mchkTrim.Checked)
                             {
                                 insertValue = insertValue.Trim();
                             }
+
                             if (this.mchkRemoveWrap.Checked)
                             {
                                 insertValue = insertValue.Replace("\n", String.Empty);
                             }
+
+                            // 如果经以上步骤处理后的单元格的值为空字符串，
+                            // 且对应的字段类型不需要双引号，
+                            // 则将值改为NULL，否则会导致语法错误。
+                            if (String.IsNullOrEmpty(insertValue) && !item.NeedSingleQuotes)
+                            {
+                                insertValue = "NULL";
+                            }
+
                             if (insertValue.ToUpper() != "NULL" && item.NeedSingleQuotes)
                             {
                                 if (!insertValue.EndsWith("()") || !this.mchkUseRawForFunc.Checked)

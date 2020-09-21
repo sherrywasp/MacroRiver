@@ -17,7 +17,7 @@ namespace MacroRiver.UserControls
         public string ExcelFileName { get; set; }
         public List<ColumnMapping> ColumnMappingList { get; set; }
 
-        private List<FailCell> failCells = new List<FailCell>();
+        private DataTable dtFailCells = null;
 
         public UCValidation(IDbConnection DbConnection, string tableName, string fileName, List<ColumnMapping> lstColumnMapping)
         {
@@ -31,7 +31,10 @@ namespace MacroRiver.UserControls
 
         private void UCValidation_Load(object sender, EventArgs e)
         {
-
+            dtFailCells = new DataTable();
+            dtFailCells.Columns.Add("Row");
+            dtFailCells.Columns.Add("Col");
+            dtFailCells.Columns.Add("Explanation");
         }
 
         private void mtNext_Click(object sender, EventArgs e)
@@ -66,6 +69,11 @@ namespace MacroRiver.UserControls
 
                     var errorLog = String.Empty;
 
+                    dtFailCells = new DataTable();
+                    dtFailCells.Columns.Add("Row");
+                    dtFailCells.Columns.Add("Col");
+                    dtFailCells.Columns.Add("Explanation");
+
                     foreach (var item in ColumnMappingList)
                     {
                         // 根据字段信息，逐行校验
@@ -74,8 +82,11 @@ namespace MacroRiver.UserControls
                             var error = String.Empty;
                             if (!Validate(item.DbColInfo, Convert.ToString(sheet.Cells[row, item.ColIndex].Value), out error))
                             {
-                                var fc = new FailCell() { Row = row, Col = item.ExcelColName, Explanation = error };
-                                failCells.Add(fc);
+                                DataRow newRow = dtFailCells.NewRow();
+                                newRow["Row"] = row;
+                                newRow["Col"] = item.ExcelColName;
+                                newRow["Explanation"] = error;
+                                dtFailCells.Rows.Add(newRow);
                             }
                         }
                     }
@@ -87,10 +98,11 @@ namespace MacroRiver.UserControls
         {
             this.metroProgressSpinner1.Visible = false;
 
-            this.dgvValidation.DataSource = failCells;
-            if (failCells.Count > 0)
+            this.dgvValidation.DataSource = dtFailCells;
+
+            if (dtFailCells.Rows.Count > 0)
             {
-                MetroMsgBoxUtil.Warning(this, String.Format("有 {0} 个单元格的内容未通过校验。", failCells.Count), "Warning");
+                MetroMsgBoxUtil.Warning(this, String.Format("有 {0} 个单元格的内容未通过校验。", dtFailCells.Rows.Count), "Warning");
             }
             else
             {
@@ -104,7 +116,7 @@ namespace MacroRiver.UserControls
             error = String.Empty;
 
             // 非空验证
-            if (String.IsNullOrEmpty(columnValue))
+            if (String.IsNullOrEmpty(columnValue) || columnValue.ToUpper() == "NULL")
             {
                 if (field.IS_NULLABLE == "NO")
                 {
@@ -229,11 +241,14 @@ namespace MacroRiver.UserControls
                 field.DATA_TYPE == "datetime" ||
                 field.DATA_TYPE == "timestamp")
             {
-                DateTime val;
-                if (!DateTime.TryParse(columnValue, out val))
+                if (columnValue.ToUpper() != "NOW()")
                 {
-                    error = "非合法日期/时间";
-                    ret = false;
+                    DateTime val;
+                    if (!DateTime.TryParse(columnValue, out val))
+                    {
+                        error = "非合法日期/时间";
+                        ret = false;
+                    }
                 }
             }
 
