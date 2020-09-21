@@ -164,6 +164,13 @@ namespace MacroRiver.UserControls
         {
             if (!String.IsNullOrEmpty(this.sqlGenerated))
             {
+                string commandName = this.mchkUseReplaceInto.Checked ? "replace" : "insert";
+                this.saveFileDialog1.FileName = String.Format(
+                    "{0}-{1}-{2}.sql",
+                    this.DbConnection.Database,
+                    this.TableName,
+                    commandName
+                );
                 if (this.saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     try
