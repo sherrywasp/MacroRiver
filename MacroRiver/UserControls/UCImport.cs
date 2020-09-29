@@ -40,7 +40,7 @@ namespace MacroRiver.UserControls
 
         private void mtRun_Click(object sender, EventArgs e)
         {
-            MetroMsgBoxUtil.Warning(this, "该功能暂停使用", "Sorry");
+            MetroMsgBoxUtil.Warning(this, "该功能暂停使用", "Oops");
 
             //operationFlag = "excute";
             //this.metroProgressSpinner1.Visible = true;
@@ -104,10 +104,8 @@ namespace MacroRiver.UserControls
                                 insertValue = insertValue.Replace("\n", String.Empty);
                             }
 
-                            // 如果经以上步骤处理后的单元格的值为空字符串，
-                            // 且对应的字段类型不需要双引号，
-                            // 则将值改为NULL，否则会导致语法错误。
-                            if (String.IsNullOrEmpty(insertValue) && !item.NeedSingleQuotes)
+                            // 如果经以上步骤处理后的单元格的值为空字符串，则将值改为 NULL
+                            if (String.IsNullOrEmpty(insertValue))
                             {
                                 insertValue = "NULL";
                             }
